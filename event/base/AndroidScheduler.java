@@ -20,7 +20,7 @@ public class AndroidScheduler extends Scheduler {
 
     @Override
     public Worker createWorker(Object... args) {
-        Platform platform = Platform.getInstance(Platform.TYPE_UI_THREAD_POOL);
+        AndroidThreadPool platform = Platform.getInstance(Platform.TYPE_UI_THREAD_POOL);
         EventBuilder.Event event;
         Runnable work;
         if (args != null && args.length >= 2) {
@@ -46,11 +46,11 @@ public class AndroidScheduler extends Scheduler {
 
         private boolean mUnsubscribe = false;
 
-        private Platform mPlatform = null;
+        private AndroidThreadPool mPlatform = null;
 
         private Runnable mWork = null;
 
-        public AndroidWorker(Platform platform, EventBuilder.Event event, Runnable work) {
+        public AndroidWorker(AndroidThreadPool platform, EventBuilder.Event event, Runnable work) {
             mPlatform = platform;
             mEvent = event;
             mWork = work;
@@ -69,22 +69,37 @@ public class AndroidScheduler extends Scheduler {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
+        public <V, T> EventBuilder.Event<V, T> getEvent() {
+            return mEvent;
+        }
+
+        @Override
         public Subscription schedule() {
             return schedule(0, null);
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public Subscription schedule(long delayTime, TimeUnit unit) {
-            //TODO unimpliment 延时调度方法
+            //impliment by ouyangjinfu 延时调度方法
             if (mUnsubscribe) {
-                return new Unsubscribed();
+                return new Unsubscribed(mEvent);
             }
             if (mEvent.getInterceptor() != null
                     && mEvent.getInterceptor().intercept(Interceptor.EventState.SCHEDULE, mEvent)) {
-                return new Unsubscribed();
+                return new Unsubscribed(mEvent);
             }
             ScheduledAction action = new ScheduledAction(mEvent, mPlatform, mWork);
-            mPlatform.execute(action);
+            if (delayTime <= 0) {
+                mPlatform.execute(action, mEvent.sessionId);
+            } else {
+                long milliDelay = delayTime;
+                if (unit != null) {
+                    milliDelay = unit.toMillis(delayTime);
+                }
+                mPlatform.executeDelay(action, milliDelay, mEvent.sessionId);
+            }
             return action;
         }
     }
@@ -112,6 +127,12 @@ public class AndroidScheduler extends Scheduler {
         @Override
         public boolean isUnsubscribed() {
             return mUnsubscribe;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public <V, T> EventBuilder.Event<V, T> getEvent() {
+            return mEvent;
         }
 
         @Override

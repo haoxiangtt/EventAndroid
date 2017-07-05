@@ -1,5 +1,7 @@
 package com.bfy.movieplayerplus.event.base;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -68,24 +70,43 @@ public class CacheScheduler extends Scheduler {
         }
 
         @Override
-        public Subscription schedule() {
-            if (mUnsubscribe) {
-                return new Unsubscribed();
-            }
-
-            ScheduledAction action = new ScheduledAction(mEvent, mPlatform, mWork);
-            mPlatform.execute(action);
-            return action;
+        @SuppressWarnings("unchecked")
+        public <V, T> EventBuilder.Event<V, T> getEvent() {
+            return mEvent;
         }
 
         @Override
+        public Subscription schedule() {
+            return schedule(0, null);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
         public Subscription schedule(long delayTime, TimeUnit unit) {
-            //TODO unimpliment 延时调度方法
-            return null;
+            //impliment by ouyangjinfu 延时调度方法
+            if (mUnsubscribe) {
+                return new Unsubscribed(mEvent);
+            }
+            if (mEvent.getInterceptor() != null
+                    && mEvent.getInterceptor().intercept(Interceptor.EventState.SCHEDULE, mEvent)) {
+                return new Unsubscribed(mEvent);
+            }
+            ScheduledAction action = new ScheduledAction(mEvent, mPlatform, mWork);
+            Timer timer = new Timer();
+            if (delayTime <= 0) {
+                timer.schedule(action, 0);
+            } else {
+                long millisDelay = delayTime;
+                if (unit != null) {
+                    millisDelay = unit.toMillis(delayTime);
+                }
+                timer.schedule(action, millisDelay);
+            }
+            return action;
         }
     }
 
-    static class ScheduledAction implements Runnable, Subscription{
+    static class ScheduledAction extends TimerTask implements Subscription{
 
         private Platform mPlatform;
         private EventBuilder.Event mEvent;
@@ -102,6 +123,7 @@ public class CacheScheduler extends Scheduler {
         public void unsubscribe() {
             mUnsubscribe = true;
             mEvent.setUnsubscribe(true);
+            cancel();
             mPlatform.cancel(mEvent.sessionId);
         }
 
@@ -111,9 +133,15 @@ public class CacheScheduler extends Scheduler {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
+        public <V, T> EventBuilder.Event<V, T> getEvent() {
+            return mEvent;
+        }
+
+        @Override
         public void run() {
-            if (mWork != null) {
-                mWork.run();
+            if (mWork != null && !mUnsubscribe) {
+                mPlatform.execute(mWork, mEvent.sessionId);
             }
         }
     }

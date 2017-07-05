@@ -4,9 +4,9 @@
 	Bundle bundle = new Bundle();
 	//bundle.putXXX(....);
 	new EventBuilder()
-		.receiver(new EventReceiver(){//设置接收器
+		.receiver(new EventReceiver<Bundle, JsonObject>(){//设置接收器
 			@Override
-			public void onReceive(EventBuilder.Event event){
+			public void onReceive(EventBuilder.Event<Bundle, JsonObject> event){
 			    if (event.requestId == 0) {
 					Log.d("tag","hello,receive the event, requestId = 0");
 				} else {
@@ -25,9 +25,9 @@
 		.dispatcher(new BaseEventDispatcher())//设置分发器
 		.subscribeOn(Schedulers.cache())//设置调度时所在线程
 		.observerOn(Schedelers.ui())//设置回调时所在的线程
-		.callback(new EventCallback<JsonObject>(){//设置回调
+		.callback(new EventCallback<Bundle, JsonObject>(){//设置回调
 			@Override
-				public  void call(EventBuilder.Event<JsonObject> event) {
+				public  void call(EventBuilder.Event<Bundle, JsonObject> event) {
 					//....
 					Log.d("hello, handle callback, responseData = " + event.responseData.toString());
 				}
