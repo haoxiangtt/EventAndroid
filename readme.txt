@@ -13,9 +13,7 @@
 					Log.d("tag","hello,receive the event, requestId = " + event.requestId);
 				}
 				event.responseData = new JsonObject("{code:'0',message:'hello event android.'}");
-				if (event.callback != null) {
-					event.callback.call(event);
-				}
+				event.performCallback(event);
 				
 			}
 		}).requestId(0)
