@@ -1,5 +1,3 @@
-
-<<<<<<< HEAD
  ************************************响应事件机制原理详细讲解********************************************
  * 此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件，*
  * 1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);    *
@@ -22,8 +20,8 @@
 	1、创建一个event并发送给接收器：
 	Bundle bundle = new Bundle();
 	//bundle.putXXX(....);
-	new EventBuilder()
-		.receiver(new EventReceiver<Bundle, JsonObject>(){//设置接收器
+	new EventBuilder<Bundle, JsonObject>()
+		.receiver(new EventReceiver<Bundle, JsonObject>(){//设置接收器(收货人)
 			@Override
 			public void onReceive(EventBuilder.Event<Bundle, JsonObject> event){
 			    if (event.requestId == 0) {
@@ -32,7 +30,7 @@
 					Log.d("tag","hello,receive the event, requestId = " + event.requestId);
 				}
 				event.responseData = new JsonObject("{code:'0',message:'hello event android.'}");
-				event.performCallback(event);
+				event.performCallback(event);//注意：在自己的业务处理完之后想要触发回调就必须调用一下此方法
 				
 			}
 		}).requestId(0)
@@ -52,8 +50,10 @@
 		
 		
 	二、通过注册注册器和分发器来使用：
-	1、我们需要在调用event发送前注册注册器(EventRigister)
-	   注册器的主要目的是帮我们找到对应的接收器(EventReceiver)：
+	1、我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
+	   注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
+	   一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
+	   EventRegister接口和EventReceiver接口的实现可以参考ContextReceiver类的实现。
 	   
 	   //注册业务模型，这个是我自定义的注册器，实现了EventRegister接口
         ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN_MODEL/*这是获取接收器的key*/);
@@ -88,7 +88,7 @@
 		bundle.putString("filter", "2");
 		bundle.putString("iscorrection", "1");
 		bundle.putString("privilege_filter", "0");
-		EventBuilder.Event<EventJsonObject> event = new EventBuilder()
+		EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObject>()
 			.type(Constant.EVENT_TYPE_MODEL)//填写好注册器的类型
 			.key(Constant.MAIN_MODEL)//注册器通过这个key找到对应的接收器，继承了EventRegister接口的注册器会实现getReceiver方法，
 			//这个方法的参数只有一个，就是这里传过去的key。
@@ -96,9 +96,9 @@
 			.startTime(System.currentTimeMillis())
 			.target(EventHandler.getInstance())
 			.requestBundle(bundle)
-			.callback(new EventCallback<EventJsonObject>() {
+			.callback(new EventCallback<Bundle, JsonObject>() {
 				@Override
-				public  void call(EventBuilder.Event<EventJsonObject> event) {
+				public  void call(EventBuilder.Event<Bundle, JsonObject> event) {
 				
 					parseData(event);
 					
@@ -108,6 +108,11 @@
 			.build();
 
 		event.send();
+		
+		
+		
+		
+		
 		
 		
 		
