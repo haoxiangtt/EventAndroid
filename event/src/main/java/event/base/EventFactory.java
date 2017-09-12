@@ -77,7 +77,7 @@ public class EventFactory implements EventDispatcherFactory,
     }
 
     @Override
-    public EventRegisterFactory registRegister(int type, EventRegister register) {
+    public EventRegisterFactory bindRegister(int type, EventRegister register) {
         if (register != null) {
             registerMap.put(type, register);
         }
@@ -90,7 +90,7 @@ public class EventFactory implements EventDispatcherFactory,
     }
 
     @Override
-    public EventRegisterFactory registDispatcher(int type, EventDispatcher dispatcher) {
+    public EventRegisterFactory bindDispatcher(int type, EventDispatcher dispatcher) {
         if (dispatcher != null) {
             dispatcherMap.put(type, dispatcher);
         }

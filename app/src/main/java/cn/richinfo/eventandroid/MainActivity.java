@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //使用EventFactory将自己自定义的注册器绑定到EventAndroid框架中，这里我们用框架提供的自定义注册器来举例
         //ContextReceiver是一个专门处理界面跳转，发送广播和开启服务的注册器，通过注册器获取到的接收器只有一个
         EventFactory.getEventRegisterFactory()
-            .registRegister(0/*注册器的唯一标识，可自定义*/, ContextReceiver.getRegisterInstance())
-            .registDispatcher(0/*注册器的唯一标识，告诉框架为哪个注册器注册分发器*/
+            .bindRegister(0/*注册器的唯一标识，可自定义*/, ContextReceiver.getRegisterInstance())
+            .bindDispatcher(0/*注册器的唯一标识，告诉框架为哪个注册器注册分发器*/
                 , new ContextEventDispatcher());
 
         setContentView(R.layout.activity_main);
@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .type(0)//设置注册器的唯一标识，就是在Eventfactry中注册的那个type
             .key("")//注册器通过这个key来找到对应的接收器，因为ContextReceiver注册器只有一个接收器，这里可以不配置
             .requestId(ContextReceiver.REQUEST_GO_ACTIVITY)//设置请求id，接收器通过这个id判断执行哪个方法
-            .requestData(request)//设置请求参数列表
-            .sessionId("")//设置会话id
-            .startTime(System.currentTimeMillis())//设置发送的开始时间
-            .reference(new SoftReference(this))//设置一个引用，供接收器里面调用，ContextReceiver需要一个Context容器
-            .target(EventHandler.getInstance())
-            .subscribeOn(Schedulers.ui())
+            .requestData(request)//设置请求参数列表, 非必要
+            .sessionId("")//设置会话id, 非必要
+            .startTime(System.currentTimeMillis())//设置发送的开始时间, 非必要
+            .reference(new SoftReference(this))//设置一个引用，供接收器里面调用，ContextReceiver需要一个Context容器, 非必要
+            .target(EventHandler.getInstance())//必要
+            .subscribeOn(Schedulers.ui())//非必要
             .build().send();//构建event并发送
     }
 
@@ -91,18 +91,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     event.responseData = "响应信息";
                     event.performCallback(event);//一定要调用这一句话，才能触发后面的回调
                 }
-            }).dispatcher(new DefaultEventDispatcher()//构建分发器，使用默认的。
-            ).interceptor(new Interceptor<Bundle, Object>() {//使用拦截器
+            }).dispatcher(new DefaultEventDispatcher()//构建分发器，使用默认的。非必要
+            ).interceptor(new Interceptor<Bundle, Object>() {//使用拦截器, 非必要
                 @Override
                 public boolean intercept(EventState state, EventBuilder.Event<Bundle, Object> event) {
                     return false;//返回true，任务会被拦截，中断后续操作，这里不使用拦截
                 }
             }).subscribeOn(/*Schedulers.cache()*/Schedulers.ui()//构建接收器中执行的任务所在的调度器，
-                    // 框架为我们设计了两个调度器，一个是cache，一个是ui
-            ).observeOn(Schedulers.ui()//构建回调（观察者）所在的调度器。
-            ).delay(0, null)//任务延时发送
-            .target(EventHandler.getInstance()//Event控制器，操作句柄。
-            ).callback(new EventCallback<Bundle, Object>() {//回调
+                    // 框架为我们设计了两个调度器，一个是cache，一个是ui, 默认是cache线程，非必要
+            ).observeOn(Schedulers.ui()//构建回调（观察者）所在的调度器, 默认是cache线程，非必要
+            ).delay(0, null)//任务延时发送, 非必要
+            .target(EventHandler.getInstance()//Event控制器，操作句柄。必要
+            ).callback(new EventCallback<Bundle, Object>() {//回调, 非必要
                 @Override
                 public void call(EventBuilder.Event<Bundle, Object> event) {
                     mHandler.postDelayed(new Runnable() {

@@ -15,11 +15,11 @@ package event.base;
 
 public interface EventRegisterFactory {
 
-    EventRegisterFactory registRegister(int type, EventRegister register);
+    EventRegisterFactory bindRegister(int type, EventRegister register);
 
     EventRegister getRegister(int type);
 
-    EventRegisterFactory registDispatcher(int type, EventDispatcher dispatcher);
+    EventRegisterFactory bindDispatcher(int type, EventDispatcher dispatcher);
 
     EventDispatcher getDispatcher(int type);
 }

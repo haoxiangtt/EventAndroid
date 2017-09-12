@@ -14,6 +14,7 @@
  *,之后根据实际需求处理快递(Event)                                                                      *
  ********************************************************************************************************
 
+ github地址：https://github.com/haoxiangtt/EventAndroid
 
 
 一、直接使用的方法：
@@ -34,13 +35,13 @@
 				
 			}
 		}).requestId(0)
-		.target(EventHandler.getInstance())
-		.reference(new WeakReference<Context>(this/*your context*/))
-		.requestBundle(bundle)//request parameter
-		.dispatcher(new BaseEventDispatcher())//设置分发器
-		.subscribeOn(Schedulers.cache())//设置调度时所在线程
-		.observerOn(Schedelers.ui())//设置回调时所在的线程
-		.callback(new EventCallback<Bundle, JsonObject>(){//设置回调
+		.target(EventHandler.getInstance())//操纵句柄，必要
+		.reference(new WeakReference<Context>(this/*your context*/))//非必要
+		.requestBundle(bundle)//request parameter，参数列表，非必要
+		.dispatcher(new BaseEventDispatcher())//设置分发器, 非必要
+		.subscribeOn(Schedulers.cache())//设置调度时所在线程，默认为cache线程，非必要
+		.observerOn(Schedelers.ui())//设置回调时所在的线程，默认为cache线程，非必要
+		.callback(new EventCallback<Bundle, JsonObject>(){//设置回调，非必要
 			@Override
 				public  void call(EventBuilder.Event<Bundle, JsonObject> event) {
 					//....
@@ -49,32 +50,34 @@
 		}).build().send();
 		
 		
-	二、通过注册注册器和分发器来使用：
+	二、通过绑定注册器和分发器来使用：
 	1、我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
 	   注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
 	   一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
 	   EventRegister接口和EventReceiver接口的实现可以参考ContextReceiver类的实现。
 	   
-	   //注册业务模型，这个是我自定义的注册器，实现了EventRegister接口
+	   //绑定业务模型，类ModelFactory是我自定义的注册器，实现了EventRegister接口
         ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN_MODEL/*这是获取接收器的key*/);
 
-        //注册分发器和注册者业务类后，Event的registerType和receiverKey参数才能生效.
+        //绑定分发器和注册者业务类后，Event的registerType和receiverKey参数才能生效.
         //将业务模型工厂注册到事件处理工厂中
-        EventFactory.getEventRegisterFactory().registRegister(
+        EventFactory.getEventRegisterFactory().bindDispatcher(
 			Constant.EVENT_TYPE_MODEL/*这个对应event中的registerType参数，event设置了registerType后就是通过这个查找到对应的注册器
 			，在这里type参数可以自行定义，到时event填写的时候对应就可以了*/,
 			ModelFactory.getRegister()/*把自己返回来*/);
 			
 		//下面这个注册器是由框架内部提供的，主要功能是用来处理activity的启动、发送广播和启动服务。
-        EventFactory.getEventRegisterFactory().registRegister(
+        EventFactory.getEventRegisterFactory().bindDispatcher(
 		Constant.EVENT_TYPE_CONTEXT,
 		ContextReceiver.getRegisterInstance());
 		
-        //为业务工厂分配分发器，给对应type的注册器提供分发器；注意这里的第一个参数type要与注册的那个注册器对应。
-        EventFactory.getEventRegisterFactory().registDispatcher(Constant.EVENT_TYPE_MODEL, new DefaultEventDispatcher());
-        EventFactory.getEventRegisterFactory().registDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
+        //为业务工厂分配分发器，这一步是非必要的，可以选择不绑定。
+		//给对应type的注册器提供分发器；注意这里的第一个参数type要与绑定的那个注册器对应。
+		//如果不分配，则会使用默认的分发器，如果在调用时临时配置了分发器则会使用临时的分发器。
+        EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL, new DefaultEventDispatcher());
+        EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
 		
-		到这里注册工作做完了，上面这段代码建议写在Application类中，通过这种注册方式实现Event机制可以将你自己项目的业务模块和
+		到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的业务模块和
 		EventAndroid框架绑定；下面来讲下怎么调用：
 		
 		Bundle bundle = new Bundle();//设置自己的请求参数
