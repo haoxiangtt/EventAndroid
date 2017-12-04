@@ -1,28 +1,28 @@
- ************************************ÏìÓ¦ÊÂ¼ş»úÖÆÔ­ÀíÏêÏ¸½²½â********************************************
- * ´ËÊÂ¼ş»úÖÆÄ£¿éĞÎÏóµØÃèÊöÎªÒ»¼Ò¿ìµİ¹«Ë¾£¬Ã¿Ò»¼ş¿ìµİ±»´ò°ü³ÉEvent£¬ÎÒÃÇÊÂ¼ş»úÖÆÄ£¿éÖ÷Òª×öµÄÊÂÇéÓĞÈı¼ş£¬*
- * 1¡¢µÇ¼Ç×¢²áÎïÆ·¹©Ó¦ÉÌ¹«Ë¾£¨¾ÍÊÇEventRegister£¬Ò»°ãÎªxxxFactory£ºÉú³ÉreceiverµÄ¹¤³§(¹©Ó¦ÉÌµÄ¿Í»§);    *
- * 2¡¢·ÖÅäÅÉËÍ³µÁ©ÔËËÍ¿ìµİ(·ÖÅäÅÉËÍµÄµØ·½Ò²¾ÍÊÇxxxDispatcher)£¬Ã¿Ò»¸ö¹©Ó¦ÉÌ¹«Ë¾¶ÔÓ¦Ò»Á¾ÅÉËÍ³µ( Ã¿Ò»Á¾¾ß *
- * ÌåµÄÅÉËÍ³µÒ²¾ÍÊÇÒ»¸öxxxScheduler)£¬µ«·ÖÅäÅÉËÍµÄ·½Ê½ºÍÅÉËÍ³µ¿ÉÒÔ²»Í¬¹«Ë¾Ò»Æğ¹²Ïí;                     *
- * 3¡¢ÈÃÊÕ»õÈËÊÕµ½¿ìµİ(Ò²¾ÍÊÇEventReceiver)                                                             *
- * Ö÷Òª³ÉÔ±ÀàËµÃ÷£º                                                                                     *
- * Event : ±»´ò°ü³É¿ìµİµÄÎï¼ş                                                                           *
- * EventHandler : ¿ìµİ¹«Ë¾µÄÖ¸»Ó²¿                                                                      *
- * EventFactory : ¿ìµİ¹«Ë¾                                                                              *
- * EventRegister : ¹©Ó¦ÉÌ¹«Ë¾(¾ßÌåÊµÀı²»ÊôÓÚEventÄ£¿é)£¬Ã¿Ò»¼Ò¹©Ó¦ÉÌ¹«Ë¾¶¼ÒªÏò¿ìµİ¹«Ë¾×¢²áµÇ¼Ç£¬ËùÒÔ±ØĞë*
- * ÊµÏÖ´Ë½Ó¿Ú£¬¹©Ó¦ÉÌ¹«Ë¾»á¸æËß¿ìµİ¹«Ë¾»õÎï(Event)Òª·¢¸øÄÄ¸öÊÕ¼şÈË¡£                                    *
- * EventReceiver : ÊÕ¼şÈË(¾ßÌåÊµÀı²»ÊôÓÚEventÄ£¿é)£¬×÷ÎªÊÕ¼şÈË±ØĞëÊµÏÖ´Ë½Ó¿Ú£¬ÔÚÕâÀï¿ÉÒÔÊÕµ½¿ìµİ(Event) *
- *,Ö®ºó¸ù¾İÊµ¼ÊĞèÇó´¦Àí¿ìµİ(Event)                                                                      *
+ ************************************å“åº”äº‹ä»¶æœºåˆ¶åŸç†è¯¦ç»†è®²è§£********************************************
+ * æ­¤äº‹ä»¶æœºåˆ¶æ¨¡å—å½¢è±¡åœ°æè¿°ä¸ºä¸€å®¶å¿«é€’å…¬å¸ï¼Œæ¯ä¸€ä»¶å¿«é€’è¢«æ‰“åŒ…æˆEventï¼Œæˆ‘ä»¬äº‹ä»¶æœºåˆ¶æ¨¡å—ä¸»è¦åšçš„äº‹æƒ…æœ‰ä¸‰ä»¶ï¼Œ*
+ * 1ã€ç™»è®°æ³¨å†Œç‰©å“ä¾›åº”å•†å…¬å¸ï¼ˆå°±æ˜¯EventRegisterï¼Œä¸€èˆ¬ä¸ºxxxFactoryï¼šç”Ÿæˆreceiverçš„å·¥å‚(ä¾›åº”å•†çš„å®¢æˆ·);    *
+ * 2ã€åˆ†é…æ´¾é€è½¦ä¿©è¿é€å¿«é€’(åˆ†é…æ´¾é€çš„åœ°æ–¹ä¹Ÿå°±æ˜¯xxxDispatcher)ï¼Œæ¯ä¸€ä¸ªä¾›åº”å•†å…¬å¸å¯¹åº”ä¸€è¾†æ´¾é€è½¦( æ¯ä¸€è¾†å…· *
+ * ä½“çš„æ´¾é€è½¦ä¹Ÿå°±æ˜¯ä¸€ä¸ªxxxScheduler)ï¼Œä½†åˆ†é…æ´¾é€çš„æ–¹å¼å’Œæ´¾é€è½¦å¯ä»¥ä¸åŒå…¬å¸ä¸€èµ·å…±äº«;                     *
+ * 3ã€è®©æ”¶è´§äººæ”¶åˆ°å¿«é€’(ä¹Ÿå°±æ˜¯EventReceiver)                                                             *
+ * ä¸»è¦æˆå‘˜ç±»è¯´æ˜ï¼š                                                                                     *
+ * Event : è¢«æ‰“åŒ…æˆå¿«é€’çš„ç‰©ä»¶                                                                           *
+ * EventHandler : å¿«é€’å…¬å¸çš„æŒ‡æŒ¥éƒ¨                                                                      *
+ * EventFactory : å¿«é€’å…¬å¸                                                                              *
+ * EventRegister : ä¾›åº”å•†å…¬å¸(å…·ä½“å®ä¾‹ä¸å±äºEventæ¨¡å—)ï¼Œæ¯ä¸€å®¶ä¾›åº”å•†å…¬å¸éƒ½è¦å‘å¿«é€’å…¬å¸æ³¨å†Œç™»è®°ï¼Œæ‰€ä»¥å¿…é¡»*
+ * å®ç°æ­¤æ¥å£ï¼Œä¾›åº”å•†å…¬å¸ä¼šå‘Šè¯‰å¿«é€’å…¬å¸è´§ç‰©(Event)è¦å‘ç»™å“ªä¸ªæ”¶ä»¶äººã€‚                                    *
+ * EventReceiver : æ”¶ä»¶äºº(å…·ä½“å®ä¾‹ä¸å±äºEventæ¨¡å—)ï¼Œä½œä¸ºæ”¶ä»¶äººå¿…é¡»å®ç°æ­¤æ¥å£ï¼Œåœ¨è¿™é‡Œå¯ä»¥æ”¶åˆ°å¿«é€’(Event) *
+ *,ä¹‹åæ ¹æ®å®é™…éœ€æ±‚å¤„ç†å¿«é€’(Event)                                                                      *
  ********************************************************************************************************
 
- githubµØÖ·£ºhttps://github.com/haoxiangtt/EventAndroid
+ githubåœ°å€ï¼šhttps://github.com/haoxiangtt/EventAndroid
 
 
-Ò»¡¢Ö±½ÓÊ¹ÓÃµÄ·½·¨£º
-	1¡¢´´½¨Ò»¸öevent²¢·¢ËÍ¸ø½ÓÊÕÆ÷£º
+ä¸€ã€ç›´æ¥ä½¿ç”¨çš„æ–¹æ³•ï¼š
+	1ã€åˆ›å»ºä¸€ä¸ªeventå¹¶å‘é€ç»™æ¥æ”¶å™¨ï¼š
 	Bundle bundle = new Bundle();
 	//bundle.putXXX(....);
 	new EventBuilder<Bundle, JsonObject>()
-		.receiver(new EventReceiver<Bundle, JsonObject>(){//ÉèÖÃ½ÓÊÕÆ÷(ÊÕ»õÈË)
+		.receiver(new EventReceiver<Bundle, JsonObject>(){//è®¾ç½®æ¥æ”¶å™¨(æ”¶è´§äºº)
 			@Override
 			public void onReceive(EventBuilder.Event<Bundle, JsonObject> event){
 			    if (event.requestId == 0) {
@@ -31,17 +31,17 @@
 					Log.d("tag","hello,receive the event, requestId = " + event.requestId);
 				}
 				event.responseData = new JsonObject("{code:'0',message:'hello event android.'}");
-				event.performCallback(event);//×¢Òâ£ºÔÚ×Ô¼ºµÄÒµÎñ´¦ÀíÍêÖ®ºóÏëÒª´¥·¢»Øµ÷¾Í±ØĞëµ÷ÓÃÒ»ÏÂ´Ë·½·¨
+				event.performCallback(event);//æ³¨æ„ï¼šåœ¨è‡ªå·±çš„ä¸šåŠ¡å¤„ç†å®Œä¹‹åæƒ³è¦è§¦å‘å›è°ƒå°±å¿…é¡»è°ƒç”¨ä¸€ä¸‹æ­¤æ–¹æ³•
 				
 			}
 		}).requestId(0)
-		.target(EventHandler.getInstance())//²Ù×İ¾ä±ú£¬±ØÒª
-		.reference(new WeakReference<Context>(this/*your context*/))//·Ç±ØÒª
-		.requestBundle(bundle)//request parameter£¬²ÎÊıÁĞ±í£¬·Ç±ØÒª
-		.dispatcher(new BaseEventDispatcher())//ÉèÖÃ·Ö·¢Æ÷, ·Ç±ØÒª
-		.subscribeOn(Schedulers.cache())//ÉèÖÃµ÷¶ÈÊ±ËùÔÚÏß³Ì£¬Ä¬ÈÏÎªcacheÏß³Ì£¬·Ç±ØÒª
-		.observerOn(Schedelers.ui())//ÉèÖÃ»Øµ÷Ê±ËùÔÚµÄÏß³Ì£¬Ä¬ÈÏÎªcacheÏß³Ì£¬·Ç±ØÒª
-		.callback(new EventCallback<Bundle, JsonObject>(){//ÉèÖÃ»Øµ÷£¬·Ç±ØÒª
+		.target(EventHandler.getInstance())//æ“çºµå¥æŸ„ï¼Œå¿…è¦
+		.reference(new WeakReference<Context>(this/*your context*/))//éå¿…è¦
+		.requestBundle(bundle)//request parameterï¼Œå‚æ•°åˆ—è¡¨ï¼Œéå¿…è¦
+		.dispatcher(new BaseEventDispatcher())//è®¾ç½®åˆ†å‘å™¨, éå¿…è¦
+		.subscribeOn(Schedulers.cache())//è®¾ç½®è°ƒåº¦æ—¶æ‰€åœ¨çº¿ç¨‹ï¼Œé»˜è®¤ä¸ºcacheçº¿ç¨‹ï¼Œéå¿…è¦
+		.observerOn(Schedelers.ui())//è®¾ç½®å›è°ƒæ—¶æ‰€åœ¨çš„çº¿ç¨‹ï¼Œé»˜è®¤ä¸ºcacheçº¿ç¨‹ï¼Œéå¿…è¦
+		.callback(new EventCallback<Bundle, JsonObject>(){//è®¾ç½®å›è°ƒï¼Œéå¿…è¦
 			@Override
 				public  void call(EventBuilder.Event<Bundle, JsonObject> event) {
 					//....
@@ -50,37 +50,38 @@
 		}).build().send();
 		
 		
-	¶ş¡¢Í¨¹ı°ó¶¨×¢²áÆ÷ºÍ·Ö·¢Æ÷À´Ê¹ÓÃ£º
-	1¡¢ÎÒÃÇĞèÒªÔÚµ÷ÓÃevent·¢ËÍÇ°×¢²á×¢²áÆ÷(ÊµÏÖÁËEventRigister½Ó¿ÚµÄ×Ô¶¨ÒåÀà)£»
-	   ×¢²áÆ÷µÄÖ÷ÒªÄ¿µÄÊÇ°ïÎÒÃÇÕÒµ½¶ÔÓ¦µÄ½ÓÊÕÆ÷(ÊµÏÖÁËEventReceiver½Ó¿ÚµÄ×Ô¶¨ÒåÀà)£»
-	   Ò»°ã×¢²á×¢²áÆ÷ºÍ½ÓÊÕÆ÷¶¼ÊÇÔÚApplication»òActivityµÄonCreate·½·¨ÖĞ£»
-	   EventRegister½Ó¿ÚºÍEventReceiver½Ó¿ÚµÄÊµÏÖ¿ÉÒÔ²Î¿¼ContextReceiverÀàµÄÊµÏÖ¡£
+	äºŒã€é€šè¿‡ç»‘å®šæ³¨å†Œå™¨å’Œåˆ†å‘å™¨æ¥ä½¿ç”¨ï¼š
+	1ã€æˆ‘ä»¬éœ€è¦åœ¨è°ƒç”¨eventå‘é€å‰æ³¨å†Œæ³¨å†Œå™¨(å®ç°äº†EventRigisteræ¥å£çš„è‡ªå®šä¹‰ç±»)ï¼›
+	   æ³¨å†Œå™¨çš„ä¸»è¦ç›®çš„æ˜¯å¸®æˆ‘ä»¬æ‰¾åˆ°å¯¹åº”çš„æ¥æ”¶å™¨(å®ç°äº†EventReceiveræ¥å£çš„è‡ªå®šä¹‰ç±»)ï¼›
+	   ä¸€èˆ¬æ³¨å†Œæ³¨å†Œå™¨å’Œæ¥æ”¶å™¨éƒ½æ˜¯åœ¨Applicationæˆ–Activityçš„onCreateæ–¹æ³•ä¸­ï¼›
+	   EventRegisteræ¥å£å’ŒEventReceiveræ¥å£çš„å®ç°å¯ä»¥å‚è€ƒContextReceiverç±»çš„å®ç°ã€‚
 	   
-	   //°ó¶¨ÒµÎñÄ£ĞÍ£¬ÀàModelFactoryÊÇÎÒ×Ô¶¨ÒåµÄ×¢²áÆ÷£¬ÊµÏÖÁËEventRegister½Ó¿Ú
-        ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN_MODEL/*ÕâÊÇ»ñÈ¡½ÓÊÕÆ÷µÄkey*/);
+	   //ç»‘å®šä¸šåŠ¡æ¨¡å‹ï¼Œç±»ModelFactoryæ˜¯æˆ‘è‡ªå®šä¹‰çš„æ³¨å†Œå™¨ï¼Œå®ç°äº†EventRegisteræ¥å£
+        ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN_MODEL/*è¿™æ˜¯è·å–æ¥æ”¶å™¨çš„key*/);
 
-        //°ó¶¨·Ö·¢Æ÷ºÍ×¢²áÕßÒµÎñÀàºó£¬EventµÄregisterTypeºÍreceiverKey²ÎÊı²ÅÄÜÉúĞ§.
-        //½«ÒµÎñÄ£ĞÍ¹¤³§×¢²áµ½ÊÂ¼ş´¦Àí¹¤³§ÖĞ
-        EventFactory.getEventRegisterFactory().bindDispatcher(
-			Constant.EVENT_TYPE_MODEL/*Õâ¸ö¶ÔÓ¦eventÖĞµÄregisterType²ÎÊı£¬eventÉèÖÃÁËregisterTypeºó¾ÍÊÇÍ¨¹ıÕâ¸ö²éÕÒµ½¶ÔÓ¦µÄ×¢²áÆ÷
-			£¬ÔÚÕâÀïtype²ÎÊı¿ÉÒÔ×ÔĞĞ¶¨Òå£¬µ½Ê±eventÌîĞ´µÄÊ±ºò¶ÔÓ¦¾Í¿ÉÒÔÁË*/,
-			ModelFactory.getRegister()/*°Ñ×Ô¼º·µ»ØÀ´*/);
+        //ç»‘å®šåˆ†å‘å™¨å’Œæ³¨å†Œè€…ä¸šåŠ¡ç±»åï¼ŒEventçš„registerTypeå’ŒreceiverKeyå‚æ•°æ‰èƒ½ç”Ÿæ•ˆ.
+        //å°†ä¸šåŠ¡æ¨¡å‹å·¥å‚æ³¨å†Œåˆ°äº‹ä»¶å¤„ç†å·¥å‚ä¸­
+        EventFactory.getEventRegisterFactory().bindRegister(
+			Constant.EVENT_TYPE_MODEL/*è¿™ä¸ªå¯¹åº”eventä¸­çš„registerTypeå‚æ•°ï¼Œeventè®¾ç½®äº†registerTypeåå°±æ˜¯é€šè¿‡è¿™ä¸ªæŸ¥æ‰¾åˆ°å¯¹åº”çš„æ³¨å†Œå™¨
+			ï¼Œåœ¨è¿™é‡Œtypeå‚æ•°å¯ä»¥è‡ªè¡Œå®šä¹‰ï¼Œåˆ°æ—¶eventå¡«å†™çš„æ—¶å€™å¯¹åº”å°±å¯ä»¥äº†*/,
+			ModelFactory.getRegister()/*æŠŠè‡ªå·±è¿”å›æ¥*/);
 			
-		//ÏÂÃæÕâ¸ö×¢²áÆ÷ÊÇÓÉ¿ò¼ÜÄÚ²¿Ìá¹©µÄ£¬Ö÷Òª¹¦ÄÜÊÇÓÃÀ´´¦ÀíactivityµÄÆô¶¯¡¢·¢ËÍ¹ã²¥ºÍÆô¶¯·şÎñ¡£
-        EventFactory.getEventRegisterFactory().bindDispatcher(
+		//ä¸‹é¢è¿™ä¸ªæ³¨å†Œå™¨æ˜¯ç”±æ¡†æ¶å†…éƒ¨æä¾›çš„ï¼Œä¸»è¦åŠŸèƒ½æ˜¯ç”¨æ¥å¤„ç†activityçš„å¯åŠ¨ã€å‘é€å¹¿æ’­å’Œå¯åŠ¨æœåŠ¡ã€‚
+        EventFactory.getEventRegisterFactory().bindRegister(
 		Constant.EVENT_TYPE_CONTEXT,
 		ContextReceiver.getRegisterInstance());
 		
-        //ÎªÒµÎñ¹¤³§·ÖÅä·Ö·¢Æ÷£¬ÕâÒ»²½ÊÇ·Ç±ØÒªµÄ£¬¿ÉÒÔÑ¡Ôñ²»°ó¶¨¡£
-		//¸ø¶ÔÓ¦typeµÄ×¢²áÆ÷Ìá¹©·Ö·¢Æ÷£»×¢ÒâÕâÀïµÄµÚÒ»¸ö²ÎÊıtypeÒªÓë°ó¶¨µÄÄÇ¸ö×¢²áÆ÷¶ÔÓ¦¡£
-		//Èç¹û²»·ÖÅä£¬Ôò»áÊ¹ÓÃÄ¬ÈÏµÄ·Ö·¢Æ÷£¬Èç¹ûÔÚµ÷ÓÃÊ±ÁÙÊ±ÅäÖÃÁË·Ö·¢Æ÷Ôò»áÊ¹ÓÃÁÙÊ±µÄ·Ö·¢Æ÷¡£
+        //ä¸ºä¸šåŠ¡å·¥å‚åˆ†é…åˆ†å‘å™¨ï¼Œè¿™ä¸€æ­¥æ˜¯éå¿…è¦çš„ï¼Œå¯ä»¥é€‰æ‹©ä¸ç»‘å®šã€‚
+		//ç»™å¯¹åº”typeçš„æ³¨å†Œå™¨æä¾›åˆ†å‘å™¨ï¼›æ³¨æ„è¿™é‡Œçš„ç¬¬ä¸€ä¸ªå‚æ•°typeè¦ä¸ç»‘å®šçš„é‚£ä¸ªæ³¨å†Œå™¨å¯¹åº”ã€‚
+		//å¦‚æœä¸åˆ†é…ï¼Œåˆ™ä¼šä½¿ç”¨é»˜è®¤çš„åˆ†å‘å™¨ï¼Œå¦‚æœåœ¨è°ƒç”¨æ—¶ä¸´æ—¶é…ç½®äº†åˆ†å‘å™¨åˆ™ä¼šä½¿ç”¨ä¸´æ—¶çš„åˆ†å‘å™¨ã€‚
+		//åˆ†å‘å™¨å¯ä»¥æ ¹æ®æƒ…å†µè‡ªè¡Œæ‰©å±•ï¼Œæœ¬æ¡†æ¶æä¾›äº†ä¸¤ç§é»˜è®¤çš„åˆ†å‘å™¨ã€‚
         EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL, new DefaultEventDispatcher());
         EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
 		
-		µ½ÕâÀï°ó¶¨¹¤×÷×öÍêÁË£¬ÉÏÃæÕâ¶Î´úÂë½¨ÒéĞ´ÔÚApplicationÀàÖĞ£¬Í¨¹ıÕâÖÖ·½Ê½ÊµÏÖEvent»úÖÆ¿ÉÒÔ½«Äã×Ô¼ºÏîÄ¿µÄÒµÎñÄ£¿éºÍ
-		EventAndroid¿ò¼Ü°ó¶¨£»ÏÂÃæÀ´½²ÏÂÔõÃ´µ÷ÓÃ£º
+		åˆ°è¿™é‡Œç»‘å®šå·¥ä½œåšå®Œäº†ï¼Œä¸Šé¢è¿™æ®µä»£ç å»ºè®®å†™åœ¨Applicationç±»ä¸­ï¼Œé€šè¿‡è¿™ç§æ–¹å¼å®ç°Eventæœºåˆ¶å¯ä»¥å°†ä½ è‡ªå·±é¡¹ç›®çš„ä¸šåŠ¡æ¨¡å—å’Œ
+		EventAndroidæ¡†æ¶ç»‘å®šï¼›ä¸‹é¢æ¥è®²ä¸‹æ€ä¹ˆè°ƒç”¨ï¼š
 		
-		Bundle bundle = new Bundle();//ÉèÖÃ×Ô¼ºµÄÇëÇó²ÎÊı
+		Bundle bundle = new Bundle();//è®¾ç½®è‡ªå·±çš„è¯·æ±‚å‚æ•°
 		bundle.putString("keyword", key);
 		bundle.putString("page", "1");
 		bundle.putString("pagesize", "30");
@@ -92,9 +93,9 @@
 		bundle.putString("iscorrection", "1");
 		bundle.putString("privilege_filter", "0");
 		EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObject>()
-			.type(Constant.EVENT_TYPE_MODEL)//ÌîĞ´ºÃ×¢²áÆ÷µÄÀàĞÍ
-			.key(Constant.MAIN_MODEL)//×¢²áÆ÷Í¨¹ıÕâ¸ökeyÕÒµ½¶ÔÓ¦µÄ½ÓÊÕÆ÷£¬¼Ì³ĞÁËEventRegister½Ó¿ÚµÄ×¢²áÆ÷»áÊµÏÖgetReceiver·½·¨£¬
-			//Õâ¸ö·½·¨µÄ²ÎÊıÖ»ÓĞÒ»¸ö£¬¾ÍÊÇÕâÀï´«¹ıÈ¥µÄkey¡£
+			.type(Constant.EVENT_TYPE_MODEL)//å¡«å†™å¥½æ³¨å†Œå™¨çš„ç±»å‹
+			.key(Constant.MAIN_MODEL)//æ³¨å†Œå™¨é€šè¿‡è¿™ä¸ªkeyæ‰¾åˆ°å¯¹åº”çš„æ¥æ”¶å™¨ï¼Œç»§æ‰¿äº†EventRegisteræ¥å£çš„æ³¨å†Œå™¨ä¼šå®ç°getReceiveræ–¹æ³•ï¼Œ
+			//è¿™ä¸ªæ–¹æ³•çš„å‚æ•°åªæœ‰ä¸€ä¸ªï¼Œå°±æ˜¯è¿™é‡Œä¼ è¿‡å»çš„keyã€‚
 			.requestId(0)
 			.startTime(System.currentTimeMillis())
 			.target(EventHandler.getInstance())

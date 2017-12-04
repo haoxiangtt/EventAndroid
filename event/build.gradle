@@ -9,9 +9,6 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -22,10 +19,30 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
+}
+
+
+def BASENAME = "eventAndroid";
+def sdkDestinationPath = "build/outputs/jar/";
+android.libraryVariants.all { variant ->
+    def finalName = "${BASENAME}-${variant.name}-v${variant.mergedFlavor.versionName}"
+    def deleteBuild = tasks.create(name : "delete${variant.name}Jar",
+            type : Delete) {
+        delete "${sdkDestinationPath}${finalName}.jar"
+    }
+    tasks.create(name : "makeJar${variant.name.capitalize()}",
+            dependsOn : [deleteBuild, variant.assemble],
+            type : Jar) {
+//        def zfile = file("build/intermediates/bundles/${variant.name}/classes.jar")
+//        from zipTree(zfile)
+        from "build/intermediates/classes/${variant.name}"
+        baseName finalName
+        destinationDir file(sdkDestinationPath)
+        exclude "android/support/**/*.class"
+        exclude "**/R.class"
+        exclude "**/R\$*.class"
+        include "event/**/*.class"
+    }
 }
