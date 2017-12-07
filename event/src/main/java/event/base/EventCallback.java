@@ -9,7 +9,7 @@ package event.base;
  * @createDate : 2017/4/18
  * @modifyDate : 2017/4/18
  * version     : 1.0
- * @desc       : 事件回调接口
+ * @desc       : 事件回调接口(观察者接口)
  * </pre>
  */
 

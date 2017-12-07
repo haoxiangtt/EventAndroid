@@ -99,7 +99,7 @@
 			.requestId(0)
 			.startTime(System.currentTimeMillis())
 			.target(EventHandler.getInstance())
-			.requestBundle(bundle)
+			.requestData(bundle)
 			.callback(new EventCallback<Bundle, JsonObject>() {
 				@Override
 				public  void call(EventBuilder.Event<Bundle, JsonObject> event) {

@@ -33,87 +33,172 @@ public class EventBuilder<V, T> {
         ev.release();
     }
 
+    /**
+     * 设置注册工厂类型
+     * @param type 类型
+     * @return this
+     */
     public EventBuilder<V, T> type(int type) {
         mEvent.registerType = type;
         return this;
     }
 
+    /**
+     * 设置接收器键值
+     * @param key 键值 用查询到对应的接收器
+     * @return this
+     */
     public EventBuilder<V, T> key(String key) {
         mEvent.receiverKey = key;
         return this;
     }
 
+    /**
+     * 设置请求id
+     * @param requestId 请求id，给业务逻辑用的，框架本身用不到
+     * @return this
+     */
     public EventBuilder<V, T> requestId(int requestId) {
         mEvent.requestId = requestId;
         return this;
     }
 
+    /**
+     * 设置会话id
+     * @param sessionId 设置此次事件发送的会话id
+     * @return this
+     */
     public EventBuilder<V, T> sessionId(String sessionId) {
         mEvent.sessionId = sessionId;
         return this;
     }
 
+    /**
+     * 设置请求参数
+     * @param bundle 参数对象，给业务模块用，框架本身不使用
+     * @return this
+     */
     public EventBuilder<V, T> requestData(V bundle) {
         mEvent.requestData = bundle;
         return this;
     }
 
+    /**
+     * 设置一个全局上下文引用，
+     * @param reference 引用，框架本身不使用
+     * @return this
+     */
     public EventBuilder<V, T> reference(Reference reference) {
         mEvent.reference = reference;
         return this;
     }
 
+    /**
+     * 设置操纵句柄
+     * @param handler 操纵器，一般为EventHandler.getInstants(),可以自己扩展此类
+     * @return this
+     */
     public EventBuilder<V, T> target(EventHandler handler) {
         mEvent.target = handler;
         return this;
     }
 
+    /**
+     * 设置观察者（回调）
+     * @param callback 观察者接口
+     * @return this
+     */
     public EventBuilder<V, T> callback(EventCallback<V, T> callback) {
         mEvent.callback = callback;
         return this;
     }
 
+    /**
+     * 设置开始时间，用于统计请求时间
+     * @param time 时间
+     * @return this
+     */
     public EventBuilder<V, T> startTime(long time) {
         mEvent.startTime = time;
         return this;
     }
 
+    /**
+     * 设置订阅事件时所在的调度器
+     * @param scheduler 调度器
+     * @return this
+     */
     public EventBuilder<V, T> subscribeOn(Scheduler scheduler) {
         mEvent.subscriber = scheduler;
         return this;
     };
 
+    /**
+     * 设置观察者回调时所在的调度器
+     * @param scheduler
+     * @return this
+     */
     public EventBuilder<V, T> observeOn(Scheduler scheduler) {
         mEvent.observer = scheduler;
         return this;
     }
 
+    /**
+     * 设置注册工厂，此接口与type(int)(设置注册工厂类型)互斥
+     * @param register 注册工厂对象
+     * @return this
+     */
     public EventBuilder<V, T> register(EventRegister register) {
         mEvent.register = register;
         return this;
     }
 
+    /**
+     * 设置接收器，此接口与key(String)互斥
+     * @param receiver
+     * @return this
+     */
     public EventBuilder<V, T> receiver(EventReceiver<V, T> receiver) {
         mEvent.receiver = receiver;
         return this;
     }
 
+    /**
+     * 设置临时分发器
+     * @param dispatcher 分发器
+     * @return this
+     */
     public EventBuilder<V, T> dispatcher(EventDispatcher dispatcher) {
         mEvent.dispatcher = dispatcher;
         return this;
     }
 
+    /**
+     * 设置拦截器，拦截分发的过程
+     * @param interceptor 拦截器对象
+     * @return
+     */
     public EventBuilder<V, T> interceptor(Interceptor<V, T> interceptor) {
         mEvent.interceptor = interceptor;
         return this;
     }
 
+    /**
+     * 设置延时发送时间，在event调用send时延时的时间
+     * @param delay 延时时间
+     * @param unit 时间单位(毫秒、秒、分、时等)
+     * @return this
+     */
     public EventBuilder<V, T> delay(long delay, TimeUnit unit){
         mEvent.delay = delay;
         mEvent.unit = unit;
         return this;
     }
 
+    /**
+     * 创建event对象
+     * @return Event
+     */
     public Event<V, T> build() {
         return mEvent;
     }
@@ -148,6 +233,9 @@ public class EventBuilder<V, T> {
             return new Event<>();
         }
 
+        /**
+         * 释放资源
+         */
         public void release(){
             /*synchronized (lock) {
                 clear();
@@ -214,6 +302,10 @@ public class EventBuilder<V, T> {
             unsubscribe = false;
         }
 
+        /**
+         * 发送请求事件
+         * @return 订阅对象，可以查看订阅情况的对象
+         */
         public Subscription send(){
             if (target == null) {
                 throw new NullPointerException("event target is null!");
