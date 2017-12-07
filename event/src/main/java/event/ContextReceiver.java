@@ -17,8 +17,8 @@ import event.base.EventRegister;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　彩讯科技有限公司
- * @company    : 彩讯科技有限公司
+ * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * @company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
  * @e-mail     : ouyangjinfu@richinfo.cn
  * @createDate : 2017/4/19

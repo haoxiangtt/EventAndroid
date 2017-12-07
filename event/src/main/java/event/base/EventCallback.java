@@ -2,8 +2,8 @@ package event.base;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　彩讯科技有限公司
- * @company    : 彩讯科技有限公司
+ * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXX
+ * @company    : XXXXXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
  * @e-mail     : ouyangjinfu@richinfo.cn
  * @createDate : 2017/4/18
