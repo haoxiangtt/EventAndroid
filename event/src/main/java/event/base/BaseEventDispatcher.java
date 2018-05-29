@@ -109,8 +109,15 @@ public class BaseEventDispatcher implements EventDispatcher {
                     && mEvent.getInterceptor().intercept(Interceptor.EventState.BEGIN_WORKING, mEvent)) {
                 return;
             }
-
-            receiver.onReceive(mEvent);
+            try {
+                receiver.onReceive(mEvent);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+                for (StackTraceElement item : e.getStackTrace()) {
+                    Log.e(TAG, item.toString());
+                }
+                throw e;
+            }
 
             if (mEvent.getCallback() == null) {
                 if (mEvent.getInterceptor() != null) {

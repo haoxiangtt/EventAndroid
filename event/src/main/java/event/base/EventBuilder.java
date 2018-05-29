@@ -284,9 +284,9 @@ public class EventBuilder<V, T> {
         public T responseData;//请求结果集
         public Reference reference;//存放android 上下文(任何生命周期比较长的资源消耗大的实例都可以存放在此)
         public EventHandler target;
-        EventCallback<V, T> callback;//回调
 
         long delay;
+        EventCallback<V, T> callback;//回调
         TimeUnit unit;
         boolean isSent;
         volatile boolean unsubscribe;
@@ -346,7 +346,7 @@ public class EventBuilder<V, T> {
             return callback;
         }
 
-        void setDelay(long delay, TimeUnit unit) {
+        public void setDelay(long delay, TimeUnit unit) {
             this.delay = delay;
             this.unit = unit;
         }
@@ -423,8 +423,8 @@ public class EventBuilder<V, T> {
                     ", requestId=" + requestId +
                     ", receiverKey='" + receiverKey + '\'' +
                     ", sessionId='" + sessionId + '\'' +
-                    ", requestData=" + requestData.toString() +
-                    ", responseData=" + responseData.toString() +
+                    ", requestData=" + (requestData != null ? requestData.toString() : "null") +
+                    ", responseData=" + (responseData != null ? responseData.toString() : "null") +
                     ", startTime=" + startTime +
                     ", endTime=" + endTime +
                     ", callback=" + callback +

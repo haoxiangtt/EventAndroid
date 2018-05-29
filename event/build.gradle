@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -46,3 +49,85 @@ android.libraryVariants.all { variant ->
         include "event/**/*.class"
     }
 }
+
+def USER = 'jinfu123'
+def KEY = 'de46da1a18c6adf29c142fb9fd3a6cde2cb35328'
+def siteUrl = 'https://github.com/haoxiangtt/EventAndroid'      // 项目的主页
+def gitUrl = 'https://github.com/haoxiangtt/EventAndroid.git'   // Git仓库的url
+group = "com.bfy"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'this is a thread manage framework.'
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'no id'     //填写的一些基本信息
+                        name 'haoxiangtt'
+                        email '20386450@qq.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+bintray {
+    user = USER
+    key = KEY
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "EventAndroid"   //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+javadoc { //jav doc采用utf-8编码否则会报“GBK的不可映射字符”错误
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+    }
+}
+/*
+publish {
+    userOrg = 'jinfu123'//bintray.com用户名
+    groupId = 'com.bfy'//jcenter上的路径
+    artifactId = 'eventandroid'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'this is a thread manage framework.'//描述，不重要
+    website = 'https://github.com/haoxiangtt/EventAndroid'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
+}*/
