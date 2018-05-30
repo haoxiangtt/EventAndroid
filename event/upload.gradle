@@ -25,9 +25,9 @@ install {
                 }
                 developers {
                     developer {
-                        id 'no id'     //填写的一些基本信息
+                        id '10086'     //填写的一些基本信息
                         name 'haoxiangtt'
-                        email '20386450@qq.com'
+                        email 'ouyangjinfu@richinfo.cn'
                     }
                 }
                 scm {
