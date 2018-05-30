@@ -16,6 +16,9 @@
 
  github地址：https://github.com/haoxiangtt/EventAndroid
 
+ 引入方式：compile 'com.bfy:event-android:1.0.3'
+
+ 混淆规则：无
 
 一、直接使用的方法：
 	1、创建一个event并发送给接收器：
