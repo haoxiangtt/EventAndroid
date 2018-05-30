@@ -2,14 +2,14 @@ package event.base;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　彩讯科技股份有限公司
- * @company    : 彩讯科技股份有限公司
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/28 0028
- * @modifyDate : 2017/6/28 0028
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/28 0028
+ * modifyDate : 2017/6/28 0028
  * @version    : 1.0
- * @desc       : 调度器获取类
+ * desc       : 调度器获取类
  * </pre>
  */
 

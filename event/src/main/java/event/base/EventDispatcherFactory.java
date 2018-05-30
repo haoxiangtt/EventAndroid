@@ -2,14 +2,14 @@ package event.base;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/1 0001
- * @modifyDate : 2017/6/1 0001
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/1 0001
+ * modifyDate : 2017/6/1 0001
  * @version    : 1.0
- * @desc       : 事件分发工厂接口
+ * desc       : 事件分发工厂接口
  * </pre>
  */
 

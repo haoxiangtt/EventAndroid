@@ -5,14 +5,14 @@ import java.util.Map;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/1 0001
- * @modifyDate : 2017/6/1 0001
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/1 0001
+ * modifyDate : 2017/6/1 0001
  * @version    : 1.0
- * @desc       : 事件处理工厂，处理相应的事件，比如分发事件处理。
+ * desc       : 事件处理工厂，处理相应的事件，比如分发事件处理。
  *               事件工厂运用工厂方法设计模式，在工厂中可以扩展更多的接口来处理不同的事件。
  *               此处只做了事件分发的处理和业务类型注册，待以后根据需要扩展功能
  *

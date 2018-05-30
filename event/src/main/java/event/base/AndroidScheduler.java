@@ -4,14 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/28 0028
- * @modifyDate : 2017/6/28 0028
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/28 0028
+ * modifyDate : 2017/6/28 0028
  * @version    : 1.0
- * @desc       : Android UI线程调度器，最终是用MainThreadExecutor进行任务调度。
+ * desc       : Android UI线程调度器，最终是用MainThreadExecutor进行任务调度。
  * 代码大体和CacheScheduler一样，为了区别两者所以分开实现，方便后期做修改
  * </pre>
  */

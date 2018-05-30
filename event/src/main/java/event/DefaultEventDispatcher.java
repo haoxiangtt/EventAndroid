@@ -6,14 +6,14 @@ import event.base.Subscription;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/4/18
- * @modifyDate : 2017/4/18
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/4/18
+ * modifyDate : 2017/4/18
  * @version    : 2.0
- * @desc       : 默认的事件分发器, 沿用BaseEventDispatcher逻辑, 暂为做实现
+ * desc       : 默认的事件分发器, 沿用BaseEventDispatcher逻辑, 暂为做实现
  * //TODO 待实现
  * </pre>
  */

@@ -5,14 +5,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/4/18
- * @modifyDate : 2017/4/18
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/4/18
+ * modifyDate : 2017/4/18
  * @version    : 1.0
- * @desc       : event构造器，用于构造event事件源，为了规范开发，请不要直接构造event。
+ * desc       : event构造器，用于构造event事件源，为了规范开发，请不要直接构造event。
  * Event机制可以说是一个精简版rxJava，
  * </pre>
  */

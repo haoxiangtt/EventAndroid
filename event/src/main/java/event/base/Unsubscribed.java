@@ -2,14 +2,14 @@ package event.base;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/28 0028
- * @modifyDate : 2017/6/28 0028
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/28 0028
+ * modifyDate : 2017/6/28 0028
  * @version    : 1.0
- * @desc       : 对订阅接口做空实现的被取消订阅的类。
+ * desc       : 对订阅接口做空实现的被取消订阅的类。
  * </pre>
  */
 

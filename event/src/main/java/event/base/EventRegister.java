@@ -2,14 +2,14 @@ package event.base;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/2 0002
- * @modifyDate : 2017/6/2 0002
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/2 0002
+ * modifyDate : 2017/6/2 0002
  * @version    : 1.0
- * @desc       : 注册者(注册器)，通常一个注册者管理多个接收者，需要通过一个标识来查找到对应的接收者；
+ * desc       : 注册者(注册器)，通常一个注册者管理多个接收者，需要通过一个标识来查找到对应的接收者；
  *              有一种特殊情况就是如果一个注册者只管理一个接收者，那么EventRegister和EventReceiver接口可以在同一个类中实现
  * </pre>
  */

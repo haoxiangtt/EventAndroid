@@ -3,7 +3,6 @@ package event.base;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.lang.ref.Reference;
@@ -13,14 +12,14 @@ import java.util.concurrent.Executor;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/28 0028
- * @modifyDate : 2017/6/28 0028
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/28 0028
+ * modifyDate : 2017/6/28 0028
  * @version    : 1.0
- * @desc       : Android UI线程池
+ * desc       : Android UI线程池
  * </pre>
  */
 public class AndroidThreadPool extends Platform {
@@ -58,7 +57,6 @@ public class AndroidThreadPool extends Platform {
         return false;
     }
 
-    @NonNull
     private Runnable getWrapRunnable(final Runnable r, final String sessionId) {
         Runnable runnable = new Runnable() {
             @Override

@@ -23,9 +23,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.1'
-    //    compile project(':event')
+//        compile project(':event')
 //    compile files('libs/eventAndroid-release-v1.0.jar')
-    compile 'com.bfy:event-android:1.0.0'
+    compile 'com.bfy:event-android:1.0.3'
 }

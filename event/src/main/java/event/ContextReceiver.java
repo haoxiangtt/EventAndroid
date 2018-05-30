@@ -17,14 +17,14 @@ import event.base.EventRegister;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/4/19
- * @modifyDate : 2017/4/19
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/4/19
+ * modifyDate : 2017/4/19
  * @version    : 1.0
- * @desc       : android上下文接收器兼注册器；页面跳转、广播发送、服务开启的模型（核心业务模型）
+ * desc       : android上下文接收器兼注册器；页面跳转、广播发送、服务开启的模型（核心业务模型）
  * </pre>
  */
 

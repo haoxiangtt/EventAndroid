@@ -7,14 +7,14 @@ import java.util.UUID;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/20 0020
- * @modifyDate : 2017/6/20 0020
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/20 0020
+ * modifyDate : 2017/6/20 0020
  * @version    : 2.0
- * @desc       : 分发器基类，做了一些分发器必要的工作。
+ * desc       : 分发器基类，做了一些分发器必要的工作。
  * </pre>
  */
 

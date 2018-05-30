@@ -19,14 +19,14 @@ import java.util.concurrent.Executor;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/3/28 0023
- * @modifyDate : 2017/3/28 0023
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/3/28 0023
+ * modifyDate : 2017/3/28 0023
  * @version    : 1.1
- * @desc       : simple thread pool manager
+ * desc       : simple thread pool manager
  * </pre>
  */
 public abstract class Platform

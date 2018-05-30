@@ -18,14 +18,14 @@ import java.util.concurrent.FutureTask;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/6/28 0028
- * @modifyDate : 2017/6/28 0028
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/6/28 0028
+ * modifyDate : 2017/6/28 0028
  * @version    : 1.0
- * @desc       : 可缓存的线程池
+ * desc       : 可缓存的线程池
  * </pre>
  */
 public class CacheThreadPool extends Platform{

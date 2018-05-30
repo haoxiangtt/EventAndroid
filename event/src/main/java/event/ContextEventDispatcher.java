@@ -10,14 +10,14 @@ import event.base.Subscription;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2017/4/19
- * @modifyDate : 2017/4/19
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2017/4/19
+ * modifyDate : 2017/4/19
  * @version    : 1.0
- * @desc       : Context事件分发器是一个特殊的分发器，它会忽略Event中携带的接收者和注册者信息，转而直接调用ContextReceiver
+ * desc       : Context事件分发器是一个特殊的分发器，它会忽略Event中携带的接收者和注册者信息，转而直接调用ContextReceiver
  *              类中的单例，这样省去了去查询接收器和注册器的步骤，使得程序运行更快。所以Context分发器是适用于ContextReceiver
  *              这种类型的接收器和注册器。如果开发者使用自己定义的接收器，建议不要使用此分发器来做分发工作。
  * </pre>

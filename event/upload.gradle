@@ -6,7 +6,8 @@ apply plugin: 'com.novoda.bintray-release'
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def siteUrl = 'https://github.com/haoxiangtt/EventAndroid'      // 项目的主页
 def gitUrl = 'https://github.com/haoxiangtt/EventAndroid.git'   // Git仓库的url
-group = "com.bfy"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+group = "com.bfy"                                     // Maven Group ID for the artifact，一般填你唯一的包名
+version = '1.0.2'
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -74,11 +75,12 @@ javadoc { //jav doc采用utf-8编码否则会报“GBK的不可映射字符”�
         charSet 'UTF-8'
     }
 }*/
+
 publish {
     userOrg = 'haoxiangtt'//bintray.com用户名
     groupId = 'com.bfy'//jcenter上的路径
     artifactId = 'event-android'//项目名称
-    publishVersion = '1.0.0'//版本号
+    publishVersion = '1.0.3'//版本号
     desc = 'this is a thread manage framework.'//描述，不重要
     website = 'https://github.com/haoxiangtt/EventAndroid'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }
