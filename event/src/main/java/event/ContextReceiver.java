@@ -1,10 +1,12 @@
 package event;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,7 +25,7 @@ import event.base.EventRegister;
  * e-mail     : ouyangjinfu@richinfo.cn
  * createDate : 2017/4/19
  * modifyDate : 2017/4/19
- * @version    : 1.0
+ * @version    : 1.1
  * desc       : android上下文接收器兼注册器；页面跳转、广播发送、服务开启的模型（核心业务模型）
  * </pre>
  */
@@ -32,7 +34,7 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
 
     private static final boolean DEBUG = true;
 
-    private static final String TAG = "ContextReceiver";
+    private static final String TAG = "event-android";
 
     public static final int REQUEST_GO_ACTIVITY = 0;
     public static final int REQUEST_SEND_BROADCAST = 1;
@@ -43,13 +45,16 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
     public static final String KEY_START_FOR_RESULT = "intent_for_result";
     //如果调用如果调用startActivityForResult，需要填写一个requestCode作为请求码
     public static final String KEY_REQUEST_CODE = "intent_request_code";
+    public static final int DEFAULT_REQUEST_CODE = 200;
+
+    public static final String KEY_TRANSITION_ANIMATION = "intent_transition_anim";
 
     //直接从requestBundle中过去用户定义的intent
     public static final String KEY_INTENT = "intent_intent";
 
 /*程序自动生成一个需要发送的intent*/
     //获取所要传递的数据
-    public static final String KEY_BUNDLE = "intent_bundle";
+    public static final String KEY_EXTRAS = "intent_extras";
     //获取跳转组件的class类实例
     public static final String KEY_CLASS = "intent_class";
     //获取需要设置的行为字符串
@@ -60,10 +65,18 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
     public static final String KEY_TYPE = "intent_type";
     //获取需要设置的category
     public static final String KEY_CATEGORY = "intent_category";
+    public static final String KEY_CATEGORIES = "intent_categories";
+    //获取需要设置的flag值
+    public static final String KEY_FLAGS = "intent_flags";
 
     //广播类型
-    public static final String KEY_LOCAL_BROACAST = "intent_is_local_broadcasr";
-    public static final String KEY_STICKY_BROACAST = "intent_is_sticky_broadcast";
+    public static final String KEY_BROADCAST_PERMISSION = "intent_broadcast_permission";
+    public static final String KEY_BROADCAST_TYPE = "intent_broadcast_type";
+    public static final int KEY_COMMON_BROADCAST = 0;
+    public static final int KEY_LOCAL_BROADCAST = 1;
+    public static final int KEY_STICKY_BROADCAST = 2;
+    public static final int KEY_ORDER_BROADCAST = 3;
+
 /**********************************/
     private static ContextReceiver mInstance;
 
@@ -88,20 +101,47 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
     protected void goActivity(EventBuilder.Event<Bundle, Object> ev){
         Intent intent = getIntent(ev);
         boolean forResult = ev.requestData.getBoolean(KEY_START_FOR_RESULT, false);
-        int requestCode = ev.requestData.getInt(KEY_REQUEST_CODE, 200);
-        if (ev.reference != null && ev.reference.get() != null
-                && ev.reference.get() instanceof  Context) {
+        int requestCode = ev.requestData.getInt(KEY_REQUEST_CODE, DEFAULT_REQUEST_CODE);
+        if (ev.reference != null && ev.reference.get() != null) {
             if (forResult) {
                 if (ev.reference.get() instanceof Activity) {
-                    ((Activity) ev.reference.get()).startActivityForResult(intent, requestCode);
+                    Activity activity = (Activity) ev.reference.get();
+                    activity.startActivityForResult(intent, requestCode);
+                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                    if (anims != null && anims.length == 2) {
+                        activity.overridePendingTransition(anims[0], anims[1]);
+                    }
+                    ev.responseData = true;
+                } else if (ev.reference.get() instanceof Fragment) {
+                    Fragment fragment = (Fragment) ev.reference.get();
+                    fragment.startActivityForResult(intent, requestCode);
+                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                    if (anims != null && anims.length == 2) {
+                        fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
+                    }
                     ev.responseData = true;
                 } else {
-                    Log.e(TAG, ">>>>ev.reference.get() cannot Cast to Activity, maybe it is not a" +
-                            " Activity,so cannot invoke startActivityForResult method.");
+                    Log.e(TAG, ">>>>ev.reference.get() cannot Cast to Activity or Fragment, maybe it is not a" +
+                            " Activity or Fragment,so cannot invoke startActivityForResult method.");
                     ev.responseData = false;
                 }
             } else {
-                ((Context)ev.reference.get()).startActivity(intent);
+                if (ev.reference.get() instanceof Context) {
+                    ((Context)ev.reference.get()).startActivity(intent);
+                    if (ev.reference.get() instanceof Activity) {
+                        int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                        if (anims != null && anims.length == 2) {
+                            ((Activity)ev.reference.get()).overridePendingTransition(anims[0], anims[1]);
+                        }
+                    }
+                } else if (ev.reference.get() instanceof Fragment) {
+                    Fragment fragment = (Fragment) ev.reference.get();
+                    fragment.startActivity(intent);
+                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                    if (anims != null && anims.length == 2) {
+                        fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
+                    }
+                }
                 ev.responseData = true;
             }
         } else {
@@ -115,21 +155,44 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
 
     }
 
+    /**
+     * if use StickyBroadcast request permission {@link android.Manifest.permission#BROADCAST_STICKY}
+     * @param ev
+     */
+    @SuppressLint("MissingPermission")
     protected void sendBroadcast(EventBuilder.Event<Bundle, Object> ev){
         Intent intent = getIntent(ev);
         if (ev.reference != null && ev.reference.get() != null) {
-            if (ev.requestData.getBoolean(KEY_LOCAL_BROACAST, false)) {
-                LocalBroadcastManager lbm = LocalBroadcastManager.getInstance((Context)ev.reference.get());
+            Context context = null;
+            if (ev.reference.get() instanceof Context) {
+                context = ((Context)ev.reference.get());
+            } else if (ev.reference.get() instanceof Fragment) {
+                context = ((Fragment)ev.reference.get()).getActivity();
+            } else {
+                Log.e(TAG, ">>>>ev.reference.get() cannot Cast to Context, maybe it is not" +
+                        " Context type,so cannot send broadcast.");
+                return;
+            }
+            int startType = ev.requestData.getInt(KEY_BROADCAST_TYPE, KEY_COMMON_BROADCAST);
+            String permission = ev.requestData.getString(KEY_BROADCAST_PERMISSION);
+            if ( startType== KEY_LOCAL_BROADCAST) {
+                LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(context);
                 lbm.sendBroadcast(intent);
                 ev.responseData = true;
-            } else {
-                Context context = ((Context)ev.reference.get());
-                if (!ev.requestData.getBoolean(KEY_STICKY_BROACAST, false)) {
+            } else if(startType == KEY_STICKY_BROADCAST) {
+                context.sendStickyBroadcast(intent);
+                ev.responseData = true;
+            } else if (startType == KEY_ORDER_BROADCAST) {
+                if (TextUtils.isEmpty(permission)) {
                     context.sendBroadcast(intent);
-                    ev.responseData = true;
                 } else {
-                    context.sendStickyBroadcast(intent);
-                    ev.responseData = true;
+                    context.sendOrderedBroadcast(intent, permission);
+                }
+            } else {
+                if (TextUtils.isEmpty(permission)) {
+                    context.sendBroadcast(intent);
+                } else {
+                    context.sendBroadcast(intent, permission);
                 }
             }
         } else {
@@ -145,7 +208,13 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
     protected void startService(EventBuilder.Event<Bundle, Object> ev){
         Intent intent = getIntent(ev);
         if (ev.reference != null && ev.reference.get() != null) {
-            ((Context)ev.reference.get()).startService(intent);
+            Context context = null;
+            if (ev.reference.get() instanceof Context) {
+                context = ((Context)ev.reference.get());
+            } else if (ev.reference.get() instanceof Fragment) {
+                context = ((Fragment)ev.reference.get()).getActivity();
+            }
+            context.startService(intent);
             ev.responseData = true;
         } else {
             Log.e(TAG, "ev.reference is null, or ev.reference.get() is null, or is not Context, cannot start service!");
@@ -161,11 +230,17 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
         Intent intent = ev.requestData.getParcelable(KEY_INTENT);
         if (intent == null) {
             intent = new Intent();
-            intent.putExtra(KEY_BUNDLE, ev.requestData.getBundle(KEY_BUNDLE));
+            intent.putExtras(ev.requestData.getBundle(KEY_EXTRAS));
             Serializable serializable = ev.requestData.getSerializable(KEY_CLASS);
             String action = ev.requestData.getString(KEY_ACTION);
-            if (serializable != null) {
-                intent.setClass((Context) ev.reference.get(), (Class<?>) serializable);
+            if (serializable != null
+                    && ev.reference.get() != null
+                    && (ev.reference.get() instanceof Context || ev.reference.get() instanceof Fragment)) {
+                if (ev.reference.get() instanceof Context) {
+                    intent.setClass((Context)ev.reference.get(), (Class<?>) serializable);
+                } else if (ev.reference.get() instanceof Fragment) {
+                    intent.setClass(((Fragment)ev.reference.get()).getActivity(), (Class<?>) serializable);
+                }
 //                ev.requestData.remove(KEY_CLASS);
             } else if (!TextUtils.isEmpty(action)) {
                 intent.setAction(action);
@@ -191,6 +266,14 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
                 intent.addCategory(category);
 //                ev.requestData.remove(KEY_CATEGORY);
             }
+            String[] categorys = ev.requestData.getStringArray(KEY_CATEGORIES);
+            if (categorys != null && categorys.length > 0) {
+                for (String s : categorys) {
+                    intent.addCategory(s);
+                }
+            }
+            int flags = ev.requestData.getInt(KEY_FLAGS);
+            intent.addFlags(flags);
         } /*else {
             ev.requestData.remove(KEY_INTENT);
         }*/
@@ -211,6 +294,10 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
             case REQUEST_START_SERVICE: {
                 startService(event);
                 break;
+            }
+            default:{
+                Log.e(TAG, "not found the requestId, please set requestId to event object, \n" +
+                    "{@link #REQUEST_START_SERVICE}、{@link #REQUEST_SEND_BROADCAST}、{@link #REQUEST_GO_ACTIVITY}");
             }
         }
     }

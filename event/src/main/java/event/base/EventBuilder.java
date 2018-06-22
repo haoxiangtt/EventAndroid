@@ -88,7 +88,7 @@ public class EventBuilder<V, T> {
      * @param reference 引用，框架本身不使用
      * @return this
      */
-    public EventBuilder<V, T> reference(Reference reference) {
+    public EventBuilder<V, T> reference(Reference<?> reference) {
         mEvent.reference = reference;
         return this;
     }
@@ -282,7 +282,7 @@ public class EventBuilder<V, T> {
         public long endTime = 0;
         public V requestData;//请求参数
         public T responseData;//请求结果集
-        public Reference reference;//存放android 上下文(任何生命周期比较长的资源消耗大的实例都可以存放在此)
+        public Reference<?> reference;//存放android 上下文(任何生命周期比较长的资源消耗大的实例都可以存放在此)
         public EventHandler target;
 
         long delay;

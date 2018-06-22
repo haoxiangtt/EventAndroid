@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Scheduler {
 
-    public static final String TAG = "Event";
+    public static final String TAG = "event-android";
 
     public abstract Worker createWorker(Object... args);
 

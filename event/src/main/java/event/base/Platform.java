@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
  */
 public abstract class Platform
 {
-    protected static final String TAG = "threadpool";
+    protected static final String TAG = "event-android";
     public static final int TYPE_CACHE_THREAD_POOL = 0;
     public static final int TYPE_UI_THREAD_POOL = 1;
     private static Platform CACHE_THREAD_POOL = findPlatform(TYPE_CACHE_THREAD_POOL);
