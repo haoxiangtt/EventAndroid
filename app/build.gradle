@@ -7,7 +7,7 @@ android {
     aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "cn.richinfo.eventandroid"
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -24,8 +24,11 @@ android {
 
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-v4:25+'
     compile 'com.android.support:appcompat-v7:25.3.1'
-//        compile project(':event')
+    compile project(':event')
+    compile project(':event-router')
+    annotationProcessor project(':router-compiler')
 //    compile files('libs/eventAndroid-release-v1.0.jar')
-    compile 'com.bfy:event-android:1.0.3'
+//    compile 'com.bfy:event-android:1.0.3'
 }
