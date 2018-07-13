@@ -2,6 +2,7 @@ package event;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -103,46 +104,54 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
         boolean forResult = ev.requestData.getBoolean(KEY_START_FOR_RESULT, false);
         int requestCode = ev.requestData.getInt(KEY_REQUEST_CODE, DEFAULT_REQUEST_CODE);
         if (ev.reference != null && ev.reference.get() != null) {
-            if (forResult) {
-                if (ev.reference.get() instanceof Activity) {
-                    Activity activity = (Activity) ev.reference.get();
-                    activity.startActivityForResult(intent, requestCode);
-                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
-                    if (anims != null && anims.length == 2) {
-                        activity.overridePendingTransition(anims[0], anims[1]);
-                    }
-                    ev.responseData = true;
-                } else if (ev.reference.get() instanceof Fragment) {
-                    Fragment fragment = (Fragment) ev.reference.get();
-                    fragment.startActivityForResult(intent, requestCode);
-                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
-                    if (anims != null && anims.length == 2) {
-                        fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
-                    }
-                    ev.responseData = true;
-                } else {
-                    Log.e(TAG, ">>>>ev.reference.get() cannot Cast to Activity or Fragment, maybe it is not a" +
-                            " Activity or Fragment,so cannot invoke startActivityForResult method.");
-                    ev.responseData = false;
-                }
-            } else {
-                if (ev.reference.get() instanceof Context) {
-                    ((Context)ev.reference.get()).startActivity(intent);
+            try {
+                if (forResult) {
                     if (ev.reference.get() instanceof Activity) {
+                        Activity activity = (Activity) ev.reference.get();
+                        activity.startActivityForResult(intent, requestCode);
                         int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
                         if (anims != null && anims.length == 2) {
-                            ((Activity)ev.reference.get()).overridePendingTransition(anims[0], anims[1]);
+                            activity.overridePendingTransition(anims[0], anims[1]);
+                        }
+                        ev.responseData = true;
+                    } else if (ev.reference.get() instanceof Fragment) {
+                        Fragment fragment = (Fragment) ev.reference.get();
+                        fragment.startActivityForResult(intent, requestCode);
+                        int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                        if (anims != null && anims.length == 2) {
+                            fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
+                        }
+                        ev.responseData = true;
+                    } else {
+                        Log.e(TAG, ">>>>ev.reference.get() cannot Cast to Activity or Fragment, maybe it is not a" +
+                                " Activity or Fragment,so cannot invoke startActivityForResult method.");
+                        ev.responseData = false;
+                    }
+                } else {
+                    if (ev.reference.get() instanceof Context) {
+                        ((Context) ev.reference.get()).startActivity(intent);
+                        if (ev.reference.get() instanceof Activity) {
+                            int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                            if (anims != null && anims.length == 2) {
+                                ((Activity) ev.reference.get()).overridePendingTransition(anims[0], anims[1]);
+                            }
+                        }
+                    } else if (ev.reference.get() instanceof Fragment) {
+                        Fragment fragment = (Fragment) ev.reference.get();
+                        fragment.startActivity(intent);
+                        int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
+                        if (anims != null && anims.length == 2) {
+                            fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
                         }
                     }
-                } else if (ev.reference.get() instanceof Fragment) {
-                    Fragment fragment = (Fragment) ev.reference.get();
-                    fragment.startActivity(intent);
-                    int[] anims = ev.requestData.getIntArray(KEY_TRANSITION_ANIMATION);
-                    if (anims != null && anims.length == 2) {
-                        fragment.getActivity().overridePendingTransition(anims[0], anims[1]);
-                    }
+                    ev.responseData = true;
                 }
-                ev.responseData = true;
+            } catch ( ActivityNotFoundException e) {
+                Log.e(TAG, e.getMessage());
+                for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+                    Log.e(TAG, stackTraceElement.toString());
+                }
+                ev.responseData = false;
             }
         } else {
             Log.e(TAG, "ev.reference is null, or ev.reference.get() is null, or is not Context, cannot start activity!");
