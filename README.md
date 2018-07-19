@@ -212,6 +212,7 @@ EventRouter.getInstant().build("/test/hello").
 @Router(path = "/test/main", type = Router.Type.COMPONENT_ACTIVITY)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 	//path表示需要注入对象的路由路径，singleton表示是否使用单例模式
+	//如果不配置path，表示使用属性对应的类型进行注入
 	@Autowired(path = "/test/model1", singleton = true)
 	Model1 model1;//需要注入的业务模型
 
@@ -224,6 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	
 	//使用设置器注入
 	@Autowired(singleton = true)
+	//singleton表示是否使用单例
+	//如果不配置path，表示使用传入参数对应的类型进行注入
 	protected void setModel1(Model1 model) {
 	model11 = model;
 	}
