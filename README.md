@@ -1,7 +1,7 @@
 ## 一、功能介绍
-###### 1、基于观察者模式的响应式编程
-###### 2、页面路由功能
-###### 3、依赖注入功能
+##### 1、基于观察者模式的响应式编程
+##### 2、页面路由功能
+##### 3、依赖注入功能
 
 ## 二、核心类和接口解释
 *     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件，
@@ -25,7 +25,7 @@
     混淆规则：无
 
 ###    1、直接使用
-		直接创建EventReceiver并发送：
+###### 直接创建EventReceiver并发送：
 ```Java
 /**
 * 使用这种方式不用EventFactory去绑定注册器和分发器
@@ -77,10 +77,10 @@ event.send();//发送
 ```
 
 ###    2、通过绑定注册器和分发器来使用：
-    我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
-    注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
-    一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
-    EventRegister接口和EventReceiver接口的实现可以参考ContextReceiver类的实现。
+###### 我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
+###### 注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
+###### 一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
+###### EventRegister接口和EventReceiver接口的实现可以参考ContextReceiver类的实现。
 
 ```Java
 //绑定业务模型，类ModelFactory是我自定义的注册器，是实现了EventRegister接口的业务模型工厂类
@@ -106,8 +106,8 @@ EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL,
 EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
 ```
 
-		到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的
-		业务模块和EventAndroid框架绑定；下面来讲下怎么调用：
+    到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的
+    业务模块和EventAndroid框架绑定；下面来讲下怎么调用：
 
 ```Java
 Bundle bundle = new Bundle();//设置自己的请求参数
@@ -143,7 +143,7 @@ event.send();
 ```
 
 ## 四、页面路由功能的使用：
-      页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。<br>
+###### 页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。
 ### 1、添加依赖和配置
 ```Gradle
 dependencies {
@@ -153,6 +153,8 @@ dependencies {
 }
 ```
 ### 2、添加注解
+
+###### 添加页面路由注解
 ```Java
 @Router(path = "/test/hello", type = Router.Type.COMPONENT_ACTIVITY)
 public class HelloActivity extends AppCompatActivity {
@@ -164,7 +166,7 @@ public class HelloActivity extends AppCompatActivity {
     }
 }
 ```
-
+###### 添加业务模型路由注解
 ```Java
 @Router(path = "/test/model1", type = Router.Type.COMPONENT_MODEL)
 public class Model1 {
@@ -175,7 +177,7 @@ public class Model1 {
 ```
 
 ### 3、初始化路由SDK
-		在application或者Activity的Oncreate方法里都可以。
+###### 在application或者Activity的Oncreate方法里都可以。
 
 ```Java
 @Override
