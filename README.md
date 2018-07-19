@@ -211,6 +211,7 @@ EventRouter.getInstant().build("/test/hello").
 ```Java
 @Router(path = "/test/main", type = Router.Type.COMPONENT_ACTIVITY)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+	//path表示需要注入对象的路由路径，singleton表示是否使用单例模式
 	@Autowired(path = "/test/model1", singleton = true)
 	Model1 model1;//需要注入的业务模型
 
