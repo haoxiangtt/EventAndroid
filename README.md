@@ -5,16 +5,16 @@
 
 ## 二、核心类和接口解释
 *     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件：
-	*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);    
+	*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);
 	*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆具体的派送车
-			也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;                     
-	*     3、让收货人收到快递(也就是EventReceiver)                                                             
-*     主要成员类说明：                                                                                     
-	*     Event : 被打包成快递的物件                                                                           
-	*     EventHandler : 快递公司的指挥部                                                                     
-	*     EventFactory : 快递公司                                                                              
+			也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;
+	*     3、让收货人收到快递(也就是EventReceiver)
+*     主要成员类说明：
+	*     Event : 被打包成快递的物件
+	*     EventHandler : 快递公司的指挥部
+	*     EventFactory : 快递公司
 	*     EventRegister : 供应商公司(具体实例不属于Event模块)，每一家供应商公司都要向快递公司注册登记，所以必须
-     	 	实现此接口，供应商公司会告诉快递公司货物(Event)要发给哪个收件人。                                    
+     	 	实现此接口，供应商公司会告诉快递公司货物(Event)要发给哪个收件人。
 	*     EventReceiver : 收件人(具体实例不属于Event模块)，作为收件人必须实现此接口，在这里可以收到快递(Event)之后
 			根据实际需求处理快递(Event)
 <br>
