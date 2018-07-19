@@ -238,7 +238,7 @@ EventRouter.getInstant().build("/test/hello").
 }
 ```
 
-### 4、添加依赖注入解耦业务需求
+### 5、添加依赖注入解耦业务需求
 
 ```Java
 @Router(path = "/test/main", type = Router.Type.COMPONENT_ACTIVITY)
