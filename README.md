@@ -24,7 +24,7 @@
 ###### 引入方式：
 ```Gradle
 dependencies {
-    compile 'com.bfy:event-android:1.0.3'
+    compile 'com.bfy:event-android:1.0.4'
 }
 ```
 ###### 混淆配置：
@@ -157,8 +157,8 @@ event.send();
 ```Gradle
 dependencies {
 	compile 'com.bfy:event-android:1.0.4'
-	compile 'com.bfy:event-router:1.0.4'
-	annotationProcessor 'com.bfy:event-router-compiler:1.0.4'
+	compile 'com.bfy:event-router:1.0.0'
+	annotationProcessor 'com.bfy:event-router-compiler:1.0.0'
 }
 ```
 ###### 混淆配置：
