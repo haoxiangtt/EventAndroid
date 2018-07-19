@@ -31,47 +31,47 @@
 * 使用这种方式不用EventFactory去绑定注册器和分发器
 */
 private void handleTask() {
-EventBuilder.Event<Bundle, Object> event = new EventBuilder<Bundle, Object>()
-.register(new EventRegister() {//实例化一个注册器来构建自己的Receiver接收器
-@Override
-public EventReceiver getReceiver(String key) {
-    return null;//这里我们不用接收器，所以返回null，如果用户返回自己的接收器就不用下面的方法构建接收器了
-}
-}).receiver(new EventReceiver<Bundle, Object>() {//构建一个接收器，
-//如果用此方法构建了一个接收器，就可以不用注册器去构建接收器了，所以上面可以返回null
-@Override
-public void onReceive(EventBuilder.Event<Bundle, Object> event) {
-    Toast.makeText(MainActivity.this, "event android正在执行任务"
-	    , Toast.LENGTH_SHORT).show();
-    event.responseData = "响应信息";
-    event.performCallback(event);//一定要调用这一句话，才能触发后面的回调
-}
-}).dispatcher(new DefaultEventDispatcher()//构建分发器，使用默认的。非必要
-).interceptor(new Interceptor<Bundle, Object>() {//使用拦截器, 非必要
-@Override
-public boolean intercept(EventState state, EventBuilder.Event<Bundle, Object> event) {
-    return false;//返回true，任务会被拦截，中断后续操作，这里不使用拦截
-}
-}).subscribeOn(/*Schedulers.cache()*/Schedulers.ui()//构建接收器中执行的任务所在的调度器，
-    // 框架为我们设计了两个调度器，一个是cache，一个是ui, 默认是cache线程，非必要
-).observeOn(Schedulers.ui()//构建回调（观察者）所在的调度器, 默认是cache线程，非必要
-).delay(0, null)//任务延时发送, 非必要
-.target(EventHandler.getInstance()//Event控制器，操作句柄。必要
-).callback(new EventCallback<Bundle, Object>() {//回调, 非必要
-@Override
-public void call(EventBuilder.Event<Bundle, Object> event) {
-    mHandler.postDelayed(new Runnable() {
+	EventBuilder.Event<Bundle, Object> event = new EventBuilder<Bundle, Object>()
+	.register(new EventRegister() {//实例化一个注册器来构建自己的Receiver接收器
 	@Override
-	public void run() {
-	    Toast.makeText(MainActivity.this, "event android正在执行回调"
-		    , Toast.LENGTH_SHORT).show();
+	public EventReceiver getReceiver(String key) {
+	    return null;//这里我们不用接收器，所以返回null，如果用户返回自己的接收器就不用下面的方法构建接收器了
 	}
-    }, 2000);
-    String response = event.responseData.toString();//可以从event中获取响应信息
-    event.release();//必要的时候可以在使用完event对象时释放对象，避免内存泄露
-}
-}).build();
-event.send();//发送
+	}).receiver(new EventReceiver<Bundle, Object>() {//构建一个接收器，
+	//如果用此方法构建了一个接收器，就可以不用注册器去构建接收器了，所以上面可以返回null
+	@Override
+	public void onReceive(EventBuilder.Event<Bundle, Object> event) {
+	    Toast.makeText(MainActivity.this, "event android正在执行任务"
+		    , Toast.LENGTH_SHORT).show();
+	    event.responseData = "响应信息";
+	    event.performCallback(event);//一定要调用这一句话，才能触发后面的回调
+	}
+	}).dispatcher(new DefaultEventDispatcher()//构建分发器，使用默认的。非必要
+	).interceptor(new Interceptor<Bundle, Object>() {//使用拦截器, 非必要
+	@Override
+	public boolean intercept(EventState state, EventBuilder.Event<Bundle, Object> event) {
+	    return false;//返回true，任务会被拦截，中断后续操作，这里不使用拦截
+	}
+	}).subscribeOn(/*Schedulers.cache()*/Schedulers.ui()//构建接收器中执行的任务所在的调度器，
+	    // 框架为我们设计了两个调度器，一个是cache，一个是ui, 默认是cache线程，非必要
+	).observeOn(Schedulers.ui()//构建回调（观察者）所在的调度器, 默认是cache线程，非必要
+	).delay(0, null)//任务延时发送, 非必要
+	.target(EventHandler.getInstance()//Event控制器，操作句柄。必要
+	).callback(new EventCallback<Bundle, Object>() {//回调, 非必要
+	@Override
+	public void call(EventBuilder.Event<Bundle, Object> event) {
+	    mHandler.postDelayed(new Runnable() {
+		@Override
+		public void run() {
+		    Toast.makeText(MainActivity.this, "event android正在执行回调"
+			    , Toast.LENGTH_SHORT).show();
+		}
+	    }, 2000);
+	    String response = event.responseData.toString();//可以从event中获取响应信息
+	    event.release();//必要的时候可以在使用完event对象时释放对象，避免内存泄露
+	}
+	}).build();
+	event.send();//发送
 
 }
 ```
@@ -182,12 +182,12 @@ public class Model1 {
 ```Java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_main);
-//...
-//初始化路由SDK
-EventRouter.getInstant().init(this);
-//...
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
+	//...
+	//初始化路由SDK
+	EventRouter.getInstant().init(this);
+	//...
 }
 ```
 
@@ -235,15 +235,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_main);
-	//...
-	//初始化路由SDK
-	EventRouter.getInstant().init(this);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		//...
+		//初始化路由SDK
+		EventRouter.getInstant().init(this);
 
-	//添加依赖注入
-	eventRelease = EventRouter.getInstant().inject(this);
-	//...
+		//添加依赖注入
+		eventRelease = EventRouter.getInstant().inject(this);
+		//...
 	}
 }
 ```
