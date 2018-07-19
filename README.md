@@ -21,6 +21,7 @@
 <br>
 
 ## 三、响应式编程模块使用详解
+### 1、添加依赖和配置
 ###### 引入方式：
 ```Gradle
 dependencies {
@@ -30,7 +31,7 @@ dependencies {
 ###### 混淆配置：
     无
 
-###    1、直接使用
+### 2、直接使用
 ###### 直接创建EventReceiver并发送：
 ```Java
 /**
@@ -83,7 +84,7 @@ private void handleTask() {
 }
 ```
 
-###    2、通过绑定注册器和分发器来使用
+### 3、通过绑定注册器和分发器来使用
 ###### 我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
 ###### 注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
 ###### 一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
@@ -150,17 +151,78 @@ EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObje
 event.send();
 ```
 
-## 四、页面路由功能使用详解
-###### 页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。
+## 四、路由和依赖注入使用详解
+###### 页面路由模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。
 ### 1、添加依赖和配置
 ###### 引入方式：
+工程目录中的build.gradle
 ```Gradle
+buildscript {
+    repositories {
+        jcenter()
+        maven{
+            url 'https://dl.bintray.com/haoxiangtt/maven'
+        }
+    }
+    dependencies {
+        //...
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+	//...
+    }
+}
+```
+module中的build.gradle
+```Gradle
+//...
+apply plugin: 'com.neenbedankt.android-apt'
+android{
+//...
+}
+//...
 dependencies {
 	compile 'com.bfy:event-android:1.0.4'
 	compile 'com.bfy:event-router:1.0.0'
-	annotationProcessor 'com.bfy:event-router-compiler:1.0.0'
+	apt 'com.bfy:event-router-compiler:1.0.0'
 }
 ```
+
+###### kotlin开发环境下的引入方式：
+工程目录中的build.gradle
+```Gradle
+buildscript {
+    repositories {
+        jcenter()
+        maven{
+            url 'https://dl.bintray.com/haoxiangtt/maven'
+        }
+    }
+    dependencies {
+        //...
+	//kotlin language plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.2.10"
+	//...
+    }
+}
+```
+module中的build.gradle
+```Gradle
+//...
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android{
+//...
+}
+//...
+dependencies {
+	compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.10"
+	compile 'com.bfy:event-android:1.0.4'
+	compile 'com.bfy:event-router:1.0.0'
+	kapt 'com.bfy:event-router-compiler:1.0.0'
+}
+```
+
 ###### 混淆配置：
 ```Proguard
 -keep interface event.router.interfaces.**
@@ -217,7 +279,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
 	//...
-	//初始化路由SDK
+	//初始化路EventRouterSDK
 	EventRouter.getInstant().init(this);
 	//...
 }
