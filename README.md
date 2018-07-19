@@ -4,7 +4,7 @@
 ##### 3、依赖注入功能
 
 ## 二、核心类和接口解释
-*     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件，
+*     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件：
 	*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);    
 	*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆具体的派送车
 			也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;                     
@@ -21,8 +21,14 @@
 <br>
 
 ## 三、响应式编程模块使用方法：
-    引入方式：compile 'com.bfy:event-android:1.0.3'
-    混淆规则：无
+###### 引入方式：
+```Gradle
+dependencies {
+    compile 'com.bfy:event-android:1.0.3'
+}
+```
+###### 混淆配置：
+    无
 
 ###    1、直接使用
 ###### 直接创建EventReceiver并发送：
@@ -35,7 +41,8 @@ private void handleTask() {
 	.register(new EventRegister() {//实例化一个注册器来构建自己的Receiver接收器
 	@Override
 	public EventReceiver getReceiver(String key) {
-	    return null;//这里我们不用接收器，所以返回null，如果用户返回自己的接收器就不用下面的方法构建接收器了
+	//这里我们不用接收器，所以返回null，如果用户返回自己的接收器就不用下面的方法构建接收器了
+	    return null;
 	}
 	}).receiver(new EventReceiver<Bundle, Object>() {//构建一个接收器，
 	//如果用此方法构建了一个接收器，就可以不用注册器去构建接收器了，所以上面可以返回null
@@ -89,8 +96,8 @@ ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN
 //绑定分发器和注册者业务类后，Event的registerType和receiverKey参数才能生效.
 //将业务模型工厂注册到事件处理工厂中
 EventFactory.getEventRegisterFactory().bindRegister(
-	Constant.EVENT_TYPE_MODEL/*这个对应event中的registerType参数，event设置了registerType后就是通过这个查找到对应的注册器
-	，在这里type参数可以自行定义，到时event填写的时候对应就可以了*/,
+	Constant.EVENT_TYPE_MODEL/*这个对应event中的registerType参数，event设置了registerType后就是通过这个查找
+	到对应的注册器，在这里type参数可以自行定义，到时event填写的时候对应就可以了*/,
 	ModelFactory.getRegister()/*把自己返回来*/);
 			
 //下面这个注册器是由框架内部提供的，主要功能是用来处理activity的启动、发送广播和启动服务。
@@ -123,8 +130,9 @@ bundle.putString("iscorrection", "1");
 bundle.putString("privilege_filter", "0");
 EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObject>()
 	.type(Constant.EVENT_TYPE_MODEL)//填写好注册器的类型
-	.key(Constant.MAIN_MODEL)//注册器通过这个key找到对应的接收器，继承了EventRegister接口的注册器会实现getReceiver方法，
-	//这个方法的参数只有一个，就是这里传过去的key。
+	/*注册器通过这个key找到对应的接收器，继承了EventRegister接口的注册器会实现getReceiver方法，
+	这个方法的参数只有一个，就是这里传过去的key。*/
+	.key(Constant.MAIN_MODEL)
 	.requestId(0)
 	.startTime(System.currentTimeMillis())
 	.target(EventHandler.getInstance())
@@ -145,6 +153,7 @@ event.send();
 ## 四、页面路由功能的使用：
 ###### 页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。
 ### 1、添加依赖和配置
+###### 引入方式：
 ```Gradle
 dependencies {
 	compile 'com.bfy:event-android:1.0.4'
@@ -152,6 +161,29 @@ dependencies {
 	annotationProcessor 'com.bfy:event-router-compiler:1.0.4'
 }
 ```
+###### 混淆配置：
+```Proguard
+-keep interface event.router.interfaces.**
+-keep class event.router.annotation.**
+-keep class event.router.RouterMapper{*;}
+-keep class * implements event.router.interfaces.EventRelease{*;}
+-keepclasseswithmembernames class event.router.Utils{*;}
+-keepclasseswithmembernames class event.router.EventRouter{*;}
+-keepclasseswithmembernames class event.router.PostCard{*;}
+-keep class * implements event.router.interfaces.EventRelease{*;}
+
+#-keep class event.** ##如果上述混淆报错, 直接keep所有
+-keepclasseswithmembernames @event.router.annotation.* class *{
+    <init>();
+}
+-keepclasseswithmembernames class * {
+    @event.router.annotation.* <methods>;
+}
+-keepclasseswithmembernames class * {
+    @event.router.annotation.* <fields>;
+}
+```
+
 ### 2、添加注解
 
 ###### 添加页面路由注解
