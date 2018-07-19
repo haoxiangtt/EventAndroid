@@ -17,7 +17,7 @@ public interface EventDispatcherFactory {
 
     /**
      * 将event分发至相应的分发器(Dispatcher)
-     * @param event
+     * @param event xxx
      */
     EventDispatcher getEventDispatcher(EventBuilder.Event event);
 }

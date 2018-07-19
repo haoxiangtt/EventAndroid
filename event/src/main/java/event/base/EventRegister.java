@@ -18,7 +18,7 @@ public interface EventRegister {
     /**
      * 获取接收者
      * @param key 注册者通过这个key来获取对应的接收者，这里的key对应event中的receiverKey参数
-     * @return
+     * @return xxx
      */
     EventReceiver getReceiver(String key);
 }

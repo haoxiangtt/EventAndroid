@@ -12,14 +12,14 @@ import event.router.interfaces.EventMaker;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　彩讯科技股份有限公司
- * @company    : 彩讯科技股份有限公司
- * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2018/7/17 0017
- * @modifyDate : 2018/7/17 0017
+ * copyright  : Copyright ©2004-2018 版权所有　彩讯科技股份有限公司
+ * company    : 彩讯科技股份有限公司
+ * author     : OuyangJinfu
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2018/7/17 0017
+ * modifyDate : 2018/7/17 0017
  * @version    : 1.0
- * @desc       :
+ * desc       :
  * </pre>
  */
 

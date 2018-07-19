@@ -135,7 +135,7 @@ public class EventBuilder<V, T> {
 
     /**
      * 设置观察者回调时所在的调度器
-     * @param scheduler
+     * @param scheduler xxx
      * @return this
      */
     public EventBuilder<V, T> observeOn(Scheduler scheduler) {
@@ -155,7 +155,7 @@ public class EventBuilder<V, T> {
 
     /**
      * 设置接收器，此接口与key(String)互斥
-     * @param receiver
+     * @param receiver xxx
      * @return this
      */
     public EventBuilder<V, T> receiver(EventReceiver<V, T> receiver) {
@@ -176,7 +176,7 @@ public class EventBuilder<V, T> {
     /**
      * 设置拦截器，拦截分发的过程
      * @param interceptor 拦截器对象
-     * @return
+     * @return xxx
      */
     public EventBuilder<V, T> interceptor(Interceptor<V, T> interceptor) {
         mEvent.interceptor = interceptor;

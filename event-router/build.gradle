@@ -57,3 +57,4 @@ android.libraryVariants.all { variant ->
     }
 }
 
+apply from: 'upload.gradle'

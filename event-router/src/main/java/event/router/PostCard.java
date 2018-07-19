@@ -26,14 +26,14 @@ import event.router.annotation.Router;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2018/6/20 0020
- * @modifyDate : 2018/6/20 0020
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2018/6/20 0020
+ * modifyDate : 2018/6/20 0020
  * @version    : 1.0
- * @desc       :
+ * desc       :
  * </pre>
  */
 public class PostCard {
@@ -160,10 +160,10 @@ public class PostCard {
     /**
      *
      * @param requestId see
-     *  {@link EventRouter#REQUEST_GO_ACTIVITY}
-     *  {@link EventRouter#REQUEST_SEND_BROADCAST}
-     *  {@link EventRouter#REQUEST_GO_ACTIVITY}
-     * @return
+     * {@link EventRouter#REQUEST_GO_ACTIVITY}
+     * {@link EventRouter#REQUEST_SEND_BROADCAST}
+     * {@link EventRouter#REQUEST_GO_ACTIVITY}
+     * @return xxx
      */
     public PostCard withWhere(int requestId){
         if (!lockRequestId) {
@@ -375,7 +375,7 @@ public class PostCard {
 
     /**
      *route to navigation
-     * @return
+     * @return xxx
      */
     public Subscription letsGo() {
         return builder.build().send();

@@ -167,7 +167,7 @@ public final class ContextReceiver implements EventReceiver<Bundle, Object>, Eve
 
     /**
      * if use StickyBroadcast request permission {@link android.Manifest.permission#BROADCAST_STICKY}
-     * @param ev
+     * @param ev xxx
      */
     @SuppressLint("MissingPermission")
     protected void sendBroadcast(EventBuilder.Event<Bundle, Object> ev){

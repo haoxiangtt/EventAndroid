@@ -15,14 +15,14 @@ import event.router.interfaces.EventRelease;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXXXXXXXXX
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2018/6/20 0020
- * @modifyDate : 2018/6/20 0020
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2018/6/20 0020
+ * modifyDate : 2018/6/20 0020
  * @version    : 1.0
- * @desc       :
+ * desc       :
  * </pre>
  */
 

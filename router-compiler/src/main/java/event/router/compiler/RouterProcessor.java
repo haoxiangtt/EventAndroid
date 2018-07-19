@@ -32,14 +32,14 @@ import event.router.annotation.Router;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXXXXXXXXXXXx
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXXXXXXXXXXXx
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2018/7/17 0017
- * @modifyDate : 2018/7/17 0017
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2018/7/17 0017
+ * modifyDate : 2018/7/17 0017
  * @version    : 1.0
- * @desc       :
+ * desc       :
  * </pre>
  */
 @AutoService(Processor.class)

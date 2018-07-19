@@ -13,14 +13,14 @@ import event.router.interfaces.EventRelease;
 
 /**
  * <pre>
- * @copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXX
- * @company    : XXXXXXXXXXXXXXX
- * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
- * @createDate : 2018/7/17 0017
- * @modifyDate : 2018/7/17 0017
+ * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXX
+ * company    : XXXXXXXXXXXXXXX
+ * author     : OuyangJinfu
+ * e-mail     : ouyangjinfu@richinfo.cn
+ * createDate : 2018/7/17 0017
+ * modifyDate : 2018/7/17 0017
  * @version    : 1.0
- * @desc       :
+ * desc       :
  * </pre>
  */
 public class EventRouter {
