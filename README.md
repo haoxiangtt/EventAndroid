@@ -110,8 +110,10 @@ EventFactory.getEventRegisterFactory().bindRegister(
 //给对应type的注册器提供分发器；注意这里的第一个参数type要与绑定的那个注册器对应。
 //如果不分配，则会使用默认的分发器，如果在调用时临时配置了分发器则会使用临时的分发器。
 //分发器可以根据情况自行扩展，本框架提供了两种默认的分发器。
-EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL, new DefaultEventDispatcher());
-EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
+EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL
+	, new DefaultEventDispatcher());
+EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT
+	, new ContextEventDispatcher());
 ```
 
     到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的
