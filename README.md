@@ -1,27 +1,32 @@
-# 响应事件机制原理详细讲解：
+## 一、功能介绍
+###### 1、基于观察者模式的响应式编程
+###### 2、页面路由功能
+###### 3、依赖注入功能
 
+## 二、核心类和接口解释
 *     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件，
-*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);    
-*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆具体的派送车也就是
-      一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;                     
-*     3、让收货人收到快递(也就是EventReceiver)                                                             
+	*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);    
+	*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆具体的派送车
+			也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;                     
+	*     3、让收货人收到快递(也就是EventReceiver)                                                             
 *     主要成员类说明：                                                                                     
-*     Event : 被打包成快递的物件                                                                           
-*     EventHandler : 快递公司的指挥部                                                                     
-*     EventFactory : 快递公司                                                                              
-*     EventRegister : 供应商公司(具体实例不属于Event模块)，每一家供应商公司都要向快递公司注册登记，所以必须
-      实现此接口，供应商公司会告诉快递公司货物(Event)要发给哪个收件人。                                    
-*     EventReceiver : 收件人(具体实例不属于Event模块)，作为收件人必须实现此接口，在这里可以收到快递(Event)之后根据实际需求
+	*     Event : 被打包成快递的物件                                                                           
+	*     EventHandler : 快递公司的指挥部                                                                     
+	*     EventFactory : 快递公司                                                                              
+	*     EventRegister : 供应商公司(具体实例不属于Event模块)，每一家供应商公司都要向快递公司注册登记，所以必须
+     	 	实现此接口，供应商公司会告诉快递公司货物(Event)要发给哪个收件人。                                    
+	*     EventReceiver : 收件人(具体实例不属于Event模块)，作为收件人必须实现此接口，在这里可以收到快递(Event)之后
+			根据实际需求
       处理快递(Event)
 <br>
 <br>
 
-## 响应式编程模块使用方法：
+## 三、响应式编程模块使用方法：
     引入方式：compile 'com.bfy:event-android:1.0.3'
     混淆规则：无
 
-###    一、直接使用的方法
-####       直接创建EventReceiver并发送：
+###    1、直接使用
+		直接创建EventReceiver并发送：
 ```Java
 /**
 * 使用这种方式不用EventFactory去绑定注册器和分发器
@@ -72,7 +77,7 @@ event.send();//发送
 }
 ```
 
-###    二、通过绑定注册器和分发器来使用：
+###    2、通过绑定注册器和分发器来使用：
     我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
     注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
     一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
@@ -102,7 +107,7 @@ EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_MODEL,
 EventFactory.getEventRegisterFactory().bindDispatcher(Constant.EVENT_TYPE_CONTEXT, new ContextEventDispatcher());
 ```
 
-*		到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的
+		到这里绑定工作做完了，上面这段代码建议写在Application类中，通过这种方式实现Event机制可以将你自己项目的
 		业务模块和EventAndroid框架绑定；下面来讲下怎么调用：
 
 ```Java
@@ -138,7 +143,7 @@ EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObje
 event.send();
 ```
 
-## 页面路由功能的使用：
+## 四、页面路由功能的使用：
       页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。<br>
 ### 1、添加依赖和配置
 ```Gradle
@@ -171,7 +176,7 @@ public class Model1 {
 ```
 
 ### 3、初始化路由SDK
-*在application或者Activity的Oncreate方法里都可以。
+		在application或者Activity的Oncreate方法里都可以。
 
 ```Java
 @Override
@@ -241,4 +246,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 	}
 }
 ```
+
+## 五、其他
+
+### 1、日志开关配置
+
+```Java
+EventConfig.setDebugMode(true);
+```
+      
+      
+      
+      
+
 
