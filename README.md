@@ -6,8 +6,8 @@
 ## 二、核心类和接口解释
 *     此事件机制模块形象地描述为一家快递公司，每一件快递被打包成Event，我们事件机制模块主要做的事情有三件：
 	*     1、登记注册物品供应商公司（就是EventRegister，一般为xxxFactory：生成receiver的工厂(供应商的客户);
-	*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆具体的派送车
-			也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;
+	*     2、分配派送车俩运送快递(分配派送的地方也就是xxxDispatcher)，每一个供应商公司对应一辆派送车( 每一辆
+			具体的派送车也就是一个xxxScheduler)，但分配派送的方式和派送车可以不同公司一起共享;
 	*     3、让收货人收到快递(也就是EventReceiver)
 *     主要成员类说明：
 	*     Event : 被打包成快递的物件
@@ -92,13 +92,15 @@ private void handleTask() {
 
 ```Java
 //绑定业务模型，类ModelFactory是我自定义的注册器，是实现了EventRegister接口的业务模型工厂类
-ModelFactory.getInstance().registModelProxy(this, MainModel.class, Constant.MAIN_MODEL/*这是获取接收器的key*/);
+ModelFactory.getInstance().registModelProxy(this, MainModel.class
+	, Constant.MAIN_MODEL/*这是获取接收器的key*/);
 
 //绑定分发器和注册者业务类后，Event的registerType和receiverKey参数才能生效.
 //将业务模型工厂注册到事件处理工厂中
 EventFactory.getEventRegisterFactory().bindRegister(
-	Constant.EVENT_TYPE_MODEL/*这个对应event中的registerType参数，event设置了registerType后就是通过这个查找
-	到对应的注册器，在这里type参数可以自行定义，到时event填写的时候对应就可以了*/,
+	/*这个对应event中的registerType参数，event设置了registerType后就是通过这个查找
+	到对应的注册器，在这里type参数可以自行定义，到时event填写的时候对应就可以了*/
+	Constant.EVENT_TYPE_MODEL,
 	ModelFactory.getRegister()/*把自己返回来*/);
 			
 //下面这个注册器是由框架内部提供的，主要功能是用来处理activity的启动、发送广播和启动服务。
