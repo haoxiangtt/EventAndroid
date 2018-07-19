@@ -133,3 +133,24 @@
 
 -dontwarn android.support.v4.**
 -dontwarn android.os.**
+
+
+##SDK混淆规则
+-keep interface event.router.interfaces.**
+-keep class event.router.annotation.**
+-keep class event.router.RouterMapper{*;}
+-keep class * implements event.router.interfaces.EventRelease{*;}
+-keepclasseswithmembernames class event.router.Utils{*;}
+-keepclasseswithmembernames class event.router.EventRouter{*;}
+-keepclasseswithmembernames class event.router.PostCard{*;}
+
+#-keep class event.**
+-keepclasseswithmembernames @event.router.annotation.* class *{
+    <init>();
+}
+-keepclasseswithmembernames class * {
+    @event.router.annotation.* <methods>;
+}
+-keepclasseswithmembernames class * {
+    @event.router.annotation.* <fields>;
+}

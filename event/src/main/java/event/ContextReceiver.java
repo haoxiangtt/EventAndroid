@@ -15,6 +15,7 @@ import android.util.Log;
 import java.io.Serializable;
 
 import event.base.EventBuilder;
+import event.base.EventConfig;
 import event.base.EventReceiver;
 import event.base.EventRegister;
 
@@ -33,7 +34,7 @@ import event.base.EventRegister;
 
 public final class ContextReceiver implements EventReceiver<Bundle, Object>, EventRegister {
 
-    private static final boolean DEBUG = true;
+    private static boolean DEBUG = EventConfig.isDebugMode();
 
     private static final String TAG = "event-android";
 

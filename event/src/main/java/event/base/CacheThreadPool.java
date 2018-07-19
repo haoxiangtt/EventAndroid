@@ -30,6 +30,8 @@ import java.util.concurrent.FutureTask;
  */
 public class CacheThreadPool extends Platform{
 
+    private static boolean DEBUG = EventConfig.isDebugMode();
+
     protected ConcurrentHashMap<String,List<Reference<Future<?>>>> mThreadMap =
             new ConcurrentHashMap<String,List<Reference<Future<?>>>>();
 
@@ -64,25 +66,25 @@ public class CacheThreadPool extends Platform{
 
     @Override
     public boolean cancel(String sessionId) {
-        Log.e(TAG,"Begin cancel the thread pool by sessionId : " + sessionId);
+        if(DEBUG) Log.e(TAG,"Begin cancel the thread pool by sessionId : " + sessionId);
         if (TextUtils.isEmpty(sessionId)) {
-            Log.e(TAG,"SessionId is empty!");
+            if(DEBUG) Log.e(TAG,"SessionId is empty!");
             return false;
         }
         List<Reference<Future<?>>> list = mThreadMap.get(sessionId);
         int flag = 0;
         if (list != null) {
-            Log.e(TAG,"Find " + list.size() + " threads in the list.");
+            if(DEBUG) Log.e(TAG,"Find " + list.size() + " threads in the list.");
             int i = 0;
             for (Reference<Future<?>> ref : list) {
                 if (ref.get() != null) {
                     Future<?> task = ref.get();
                     if (!task.isDone()) {
                         if (task.cancel(true)) {
-                            Log.e(TAG, "Cancel a thread successfully!index = " + i);
+                            if(DEBUG) Log.e(TAG, "Cancel a thread successfully!index = " + i);
                         } else {
                             flag++;
-                            Log.e(TAG, "Cancel a thread failure!index = " + i);
+                            if(DEBUG) Log.e(TAG, "Cancel a thread failure!index = " + i);
                         }
                     }
                 }
@@ -99,7 +101,7 @@ public class CacheThreadPool extends Platform{
                 return false;
             }
         } finally {
-            Log.e(TAG,"End cancel thread pool!!!!");
+            if(DEBUG) Log.e(TAG,"End cancel thread pool!!!!");
         }
 
     }

@@ -20,10 +20,40 @@ import event.base.EventReceiver;
 import event.base.EventRegister;
 import event.base.Interceptor;
 import event.base.Schedulers;
+import event.router.EventRouter;
+import event.router.annotation.Autowired;
+import event.router.annotation.Router;
+import event.router.interfaces.EventRelease;
 
+@Router(path = "/test/main", type = Router.Type.COMPONENT_ACTIVITY)
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Handler mHandler;
+
+    @Autowired(path = "/test/model1", singleton = true)
+    Model1 model1;
+
+    Model1 model11;
+
+    @Autowired
+    Model2 model2;
+
+    Model2 model22;
+
+
+    private EventRelease eventRelease;
+
+    private int count = 0;
+
+    @Autowired(singleton = true)
+    protected void setModel1(Model1 model) {
+        model11 = model;
+    }
+
+    @Autowired(path = "/test/model2")
+    public void setModel2(Model2 model) {
+        model22 = model;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +65,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .bindRegister(0/*注册器的唯一标识，可自定义*/, ContextReceiver.getRegisterInstance())
             .bindDispatcher(0/*注册器的唯一标识，告诉框架为哪个注册器注册分发器*/
                 , new ContextEventDispatcher());
+        EventRouter.getInstant().init(this);
 
         setContentView(R.layout.activity_main);
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
+        findViewById(R.id.btn3).setOnClickListener(this);
+        findViewById(R.id.btn4).setOnClickListener(this);
+        findViewById(R.id.btn5).setOnClickListener(this);
+
+        eventRelease = EventRouter.getInstant().inject(this);
     }
 
 
@@ -49,9 +85,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             goActivity();
         } else if (id == R.id.btn2) {
             handleTask();
+        } else if (id == R.id.btn3) {
+            route();
+        } else if (id == R.id.btn4) {
+            goService();
+        } else if (id == R.id.btn5) {
+            showModel();
         }
     }
 
+    private void showModel() {
+        switch (count){
+            case 0: {
+                model1.show(this, "我是1号模型");
+                break;
+            }
+            case 1: {
+                model11.show(this, "我是11号模型");
+                break;
+            }
+            case 2: {
+                model2.show(this, "我是2号模型");
+                break;
+            }
+            case 3: {
+                model22.show(this, "我是22号模型");
+                break;
+            }
+        }
+        count = (count+1) % 4;
+    }
+
+    private void goService() {
+        EventRouter.getInstant().build("/test/myservice")
+            .withCallback(new EventCallback<Bundle, Boolean>() {
+                @Override
+                public void call(EventBuilder.Event<Bundle, Boolean> event) {
+                    if (event.responseData) {
+                        Toast.makeText(MainActivity.this,
+                            "router callback.",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }).letsGo();
+    }
+
+    /**
+     * 页面跳转新接口
+     * 路由接口高仿阿里的Arouter设计
+     */
+    private void route() {
+        EventRouter.getInstant().build("/test/hello").
+            withRequestCode(5002)
+            .withFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .withContext(this)
+            .letsGo();
+    }
+
+    /**
+     * 扩展了event-android的路由框架，这种跳转页面的方式就过时了！
+     */
     private void goActivity() {
         Bundle request = new Bundle();
         request.putBoolean(ContextReceiver.KEY_START_FOR_RESULT, true);//设置是否回调
@@ -118,5 +211,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }).build();
         event.send();//发送
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        eventRelease.release();
+        EventRouter.getInstant().release();
+        super.onDestroy();
     }
 }
