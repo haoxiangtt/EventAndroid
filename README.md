@@ -20,7 +20,7 @@
 <br>
 <br>
 
-## 三、响应式编程模块使用方法：
+## 三、响应式编程模块使用详解
 ###### 引入方式：
 ```Gradle
 dependencies {
@@ -83,7 +83,7 @@ private void handleTask() {
 }
 ```
 
-###    2、通过绑定注册器和分发器来使用：
+###    2、通过绑定注册器和分发器来使用
 ###### 我们需要在调用event发送前注册注册器(实现了EventRigister接口的自定义类)；
 ###### 注册器的主要目的是帮我们找到对应的接收器(实现了EventReceiver接口的自定义类)；
 ###### 一般注册注册器和接收器都是在Application或Activity的onCreate方法中；
@@ -150,7 +150,7 @@ EventBuilder.Event<Bundle, JsonObject> event = new EventBuilder<Bundle, JsonObje
 event.send();
 ```
 
-## 四、页面路由功能的使用：
+## 四、页面路由功能使用详解
 ###### 页面路由功能模块依赖响应式编程模块，其他用法和阿里的ARouter使用方法基本一样，不过阉割了一些功能。
 ### 1、添加依赖和配置
 ###### 引入方式：
