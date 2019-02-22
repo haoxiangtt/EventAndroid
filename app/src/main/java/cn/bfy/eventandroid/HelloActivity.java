@@ -1,4 +1,4 @@
-package cn.richinfo.eventandroid;
+package cn.bfy.eventandroid;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

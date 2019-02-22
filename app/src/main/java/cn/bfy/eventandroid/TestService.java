@@ -1,4 +1,4 @@
-package cn.richinfo.eventandroid;
+package cn.bfy.eventandroid;
 
 import android.app.Service;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import event.router.annotation.Router;
  * @copyright  : Copyright ©2004-2018 版权所有　彩讯科技股份有限公司
  * @company    : 彩讯科技股份有限公司
  * @author     : OuyangJinfu
- * @e-mail     : ouyangjinfu@richinfo.cn
+ * @e-mail     : jinfu123.-@163.com
  * @createDate : 2018/6/21 0021
  * @modifyDate : 2018/6/21 0021
  * @version    : 1.0

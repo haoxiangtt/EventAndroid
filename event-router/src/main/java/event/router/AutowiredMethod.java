@@ -15,7 +15,7 @@ import event.router.interfaces.EventMaker;
  * copyright  : Copyright ©2004-2018 版权所有　彩讯科技股份有限公司
  * company    : 彩讯科技股份有限公司
  * author     : OuyangJinfu
- * e-mail     : ouyangjinfu@richinfo.cn
+ * e-mail     : jinfu123.-@163.com
  * createDate : 2018/7/17 0017
  * modifyDate : 2018/7/17 0017
  * @version    : 1.0

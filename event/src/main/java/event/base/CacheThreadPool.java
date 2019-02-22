@@ -21,7 +21,7 @@ import java.util.concurrent.FutureTask;
  * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
  * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * e-mail     : ouyangjinfu@richinfo.cn
+ * e-mail     : jinfu123.-@163.com
  * createDate : 2017/6/28 0028
  * modifyDate : 2017/6/28 0028
  * @version    : 1.0

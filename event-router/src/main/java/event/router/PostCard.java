@@ -29,7 +29,7 @@ import event.router.annotation.Router;
  * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXXXX
  * company    : XXXXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * e-mail     : ouyangjinfu@richinfo.cn
+ * e-mail     : jinfu123.-@163.com
  * createDate : 2018/6/20 0020
  * modifyDate : 2018/6/20 0020
  * @version    : 1.0

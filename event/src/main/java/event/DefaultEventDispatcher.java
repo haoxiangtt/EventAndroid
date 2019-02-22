@@ -9,7 +9,7 @@ import event.base.Subscription;
  * copyright  : Copyright ©2004-2018 版权所有　XXXXXXXXXXXXXXXX
  * company    : XXXXXXXXXXXXXXXX
  * @author     : OuyangJinfu
- * e-mail     : ouyangjinfu@richinfo.cn
+ * e-mail     : jinfu123.-@163.com
  * createDate : 2017/4/18
  * modifyDate : 2017/4/18
  * @version    : 2.0
